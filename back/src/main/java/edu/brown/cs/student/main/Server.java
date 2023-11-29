@@ -10,17 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 import spark.Spark;
 
-/**
- * The class representing the server.
- */
+/** The class representing the server. */
 public class Server {
 
   // spark port for the server
   static final int port = 3232;
 
-  /**
-   * Constructor for the server, starting it with Spark Java.
-   */
+  /** Constructor for the server, starting it with Spark Java. */
   public Server() {
     // Set up our SparkJava server:
     Spark.port(port);
@@ -68,7 +64,7 @@ public class Server {
    * @param args command line arguments. Not used in this server.
    */
   public static void main(String[] args) {
-    Server server =
-        new Server();
+    // At time of creation, we decide on a specific CensusData class:
+    Server server = new Server();
   }
 }
