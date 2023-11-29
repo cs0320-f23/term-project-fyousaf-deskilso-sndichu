@@ -1,4 +1,4 @@
-package edu.brown.cs.student.unittests;
+package edu.brown.cs.student.otherunittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
-public class UnitTest {
+public class OtherUnitTests {
 
   /** Prepare for tests by getting server port. */
   @BeforeAll
@@ -56,7 +56,7 @@ public class UnitTest {
    * @throws IOException for connection issues
    */
   @Test
-  public void testUnit() throws IOException {
+  public void testUnitOther() throws IOException {
     // Set up the request, make the request
     // HttpURLConnection loadConnection = tryRequest("/");
     // Get the expected response: a success
