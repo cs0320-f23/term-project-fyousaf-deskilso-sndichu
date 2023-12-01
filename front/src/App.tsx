@@ -15,8 +15,8 @@ function App() {
       }}
     >
       <h1>Welcome to our app!</h1>
-      <Rating />
       <Form />
+      <Rating />
       <Recommendation />
     </div>
   );

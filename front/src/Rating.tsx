@@ -12,17 +12,19 @@ export default function Rating(props: RatingProps) {
   };
 
   const ratingOptions = [
-    { value: 1, label: "Not at all cold" },
-    { value: 2, label: "Slightly cold" },
-    { value: 3, label: "Moderately cold" },
-    { value: 4, label: "Very cold" },
-    { value: 5, label: "Extremely cold" },
+    { value: 1, label: "Much more" },
+    { value: 2, label: "Slightly more" },
+    { value: 3, label: "As cold as others" },
+    { value: 4, label: "Slightly less" },
+    { value: 5, label: "Extremely less" },
   ];
 
   return (
     <div
       style={{
         textAlign: "center",
+        color: "black",
+        fontFamily: "Times New Roman, Times, serif",
         marginTop: "50px",
         backgroundColor: "#b07e73",
         padding: "30px",
