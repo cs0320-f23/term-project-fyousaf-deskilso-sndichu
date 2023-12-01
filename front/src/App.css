@@ -1,15 +1,23 @@
 .App {
   text-align: center;
-  background-color: #deeec4;
+  background-color: #2f4ccd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ensure the container takes up the full height of the viewport */
+}
+
+.center-container {
+  text-align: center; /* Center text within the container */
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #b07e73;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(1px + 2vmin);
-  color: white;
+  color: rgb(215, 195, 195);
 }

@@ -13,7 +13,7 @@ export default function Form(props: FormProps) {
     // TODO: add questions about normal feeling of coldness, perception of weather, successful outfits, etc.
     // Use our spec doc for what to ask about
     // formick docs: https://formik.org/docs/overview
-    <div>
+    <div style={{ backgroundColor: "#f0f0f0", padding: "30px" }}>
       <h2>Weather Inputter</h2>
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -46,6 +46,7 @@ export default function Form(props: FormProps) {
           /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email:</label>
             <input
               type="email"
               name="email"
@@ -54,6 +55,7 @@ export default function Form(props: FormProps) {
               value={values.email}
             />
             {errors.email && touched.email && errors.email}
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               name="password"
