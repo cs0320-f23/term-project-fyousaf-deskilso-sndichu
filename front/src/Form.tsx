@@ -10,6 +10,9 @@ interface error {
 
 export default function Form(props: FormProps) {
   return (
+    // TODO: add questions about normal feeling of coldness, perception of weather, successful outfits, etc.
+    // Use our spec doc for what to ask about
+    // formick docs: https://formik.org/docs/overview
     <div>
       <h2>Weather Inputter</h2>
       <Formik

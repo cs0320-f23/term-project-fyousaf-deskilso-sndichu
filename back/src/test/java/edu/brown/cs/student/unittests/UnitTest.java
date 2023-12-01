@@ -2,8 +2,18 @@ package edu.brown.cs.student.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import okio.Buffer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,30 +23,35 @@ import spark.Spark;
 
 public class UnitTest {
 
+  private final Type mapStringObject =
+      Types.newParameterizedType(Map.class, String.class, Object.class);
+  private JsonAdapter<Map<String, Object>> mapAdapter;
+
   /** Prepare for tests by getting server port. */
   @BeforeAll
   public static void setupOnce() {
     // Pick an arbitrary free port
-    // Spark.port(0);
+    Spark.port(0);
     // Eliminate logger spam in console for test suite
-    // Logger.getLogger("").setLevel(Level.WARNING); // empty name = root
+    Logger.getLogger("").setLevel(Level.WARNING); // empty name = root
   }
 
   /** Establishes endpoint before each test. */
   @BeforeEach
   public void setup() {
-    // Spark.get("/", );
-    // Spark.awaitInitialization(); // don't continue until the server is listening
+    Spark.get("/recommendation", new RecommendationHandler());
+    Spark.awaitInitialization(); // don't continue until the server is listening
 
     Moshi moshi = new Moshi.Builder().build();
+    mapAdapter = moshi.adapter(mapStringObject);
   }
 
   /** Allows Spark to reset after each test. */
   @AfterEach
   public void tearDown() {
     // Gracefully stop Spark listening on both endpoints
-    // Spark.unmap("/");
-    // Spark.awaitStop(); // don't proceed until the server is stopped
+    Spark.unmap("/recommendation");
+    Spark.awaitStop(); // don't proceed until the server is stopped
   }
 
   /**
@@ -58,10 +73,13 @@ public class UnitTest {
   @Test
   public void testUnit() throws IOException {
     // Set up the request, make the request
-    // HttpURLConnection loadConnection = tryRequest("/");
+    HttpURLConnection loadConnection = tryRequest("/recommendation");
     // Get the expected response: a success
-    // assertEquals(200, loadConnection.getResponseCode());
-    // loadConnection.disconnect();
+    assertEquals(200, loadConnection.getResponseCode());
+    Map<String, Object> body =
+        mapAdapter.fromJson(new Buffer().readFrom(loadConnection.getInputStream()));
+    assertEquals("success", body.get("result"));
+    loadConnection.disconnect();
     assertEquals(1, 1);
   }
 
@@ -75,7 +93,6 @@ public class UnitTest {
    * @return the connection for the given URL, just after connecting
    * @throws IOException if the connection fails for some reason
    */
-  /*
   private HttpURLConnection tryRequest(String apiCall) throws IOException {
     // Configure the connection (but don't actually send a request yet)
     URL requestURL = new URL("http://localhost:" + Spark.port() + "/" + apiCall);
@@ -88,5 +105,4 @@ public class UnitTest {
     clientConnection.connect();
     return clientConnection;
   }
-  */
 }

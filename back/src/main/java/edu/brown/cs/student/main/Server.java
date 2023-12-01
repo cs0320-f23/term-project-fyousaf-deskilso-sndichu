@@ -5,20 +5,27 @@ import static spark.Spark.after;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasehandlers.DatabaseReadHandler;
+import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
+import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import spark.Spark;
 
-/** The class representing the server. */
+/**
+ * The class representing the server.
+ */
 public class Server {
 
   // spark port for the server
   static final int port = 3232;
 
-  /** Constructor for the server, starting it with Spark Java. */
+  /**
+   * Constructor for the server, starting it with Spark Java.
+   */
   public Server() {
-    // Set up our SparkJava server:
+    // Set up our SparkJava server and allow access:
     Spark.port(port);
     after(
         (request, response) -> {
@@ -27,6 +34,10 @@ public class Server {
         });
 
     // listen on our endpoints
+    Spark.get("./recommendation", new RecommendationHandler());
+    // TODO: add dependency injected database interface object to the read and write handlers. add to server constructor as well
+    Spark.get("./databaseread", new DatabaseReadHandler());
+    Spark.get("./databasewrite", new DatabaseWriteHandler());
 
     // moshi building
     Moshi moshi = new Moshi.Builder().build();
@@ -39,7 +50,7 @@ public class Server {
         "/",
         (req, res) -> {
           responseMap.put("result", "failure");
-          responseMap.put("endpoint must be", "one of our endpoints");
+          responseMap.put("endpoint must be", "recommendation, databaseread, or databasewrite");
           responseMap.put("issue", "no endpoint provided");
 
           return mapAdapter.toJson(responseMap);
@@ -48,7 +59,7 @@ public class Server {
         "*",
         (req, res) -> {
           responseMap.put("result", "failure");
-          responseMap.put("endpoint must be", "one of our endpoints");
+          responseMap.put("endpoint must be", "recommendation, databaseread, or databasewrite");
           responseMap.put("issue", "improper endpoint");
 
           return mapAdapter.toJson(responseMap);
@@ -64,7 +75,6 @@ public class Server {
    * @param args command line arguments. Not used in this server.
    */
   public static void main(String[] args) {
-    // At time of creation, we decide on a specific CensusData class:
     Server server = new Server();
   }
 }
