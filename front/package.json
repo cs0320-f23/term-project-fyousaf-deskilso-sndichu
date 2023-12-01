@@ -19,6 +19,7 @@
     }
   },
   "dependencies": {
+    "formik": "^2.4.5",
     "mapbox-gl": "^2.15.0",
     "playwright": "^1.39.0",
     "react": "^18.2.0",
