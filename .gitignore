@@ -60,3 +60,6 @@ front/private
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# private database
+back/src/main/java/edu/brown/cs/student/main/notpublic

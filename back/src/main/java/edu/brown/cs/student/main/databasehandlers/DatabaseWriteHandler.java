@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.databasehandlers;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +31,11 @@ public class DatabaseWriteHandler implements Route {
     try {
       // TODO: code for appropriate writing to database here
       // database docs:
-      // mongodb basics connection: https://www.mongodb.com/docs/drivers/java/sync/v4.3/fundamentals/connection/connect/#std-label-connect-to-mongodb
+      // mongodb basics connection:
+      // https://www.mongodb.com/docs/drivers/java/sync/v4.3/fundamentals/connection/connect/#std-label-connect-to-mongodb
       // firebase connection basics: https://firebase.google.com/docs/admin/setup/
+
+      String databaseKey = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
 
       responseMap.put("result", "success");
       return mapAdapter.toJson(responseMap);

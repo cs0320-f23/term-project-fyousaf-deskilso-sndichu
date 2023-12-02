@@ -13,17 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import spark.Spark;
 
-/**
- * The class representing the server.
- */
+/** The class representing the server. */
 public class Server {
 
   // spark port for the server
   static final int port = 3232;
 
-  /**
-   * Constructor for the server, starting it with Spark Java.
-   */
+  /** Constructor for the server, starting it with Spark Java. */
   public Server() {
     // Set up our SparkJava server and allow access:
     Spark.port(port);
@@ -34,10 +30,11 @@ public class Server {
         });
 
     // listen on our endpoints
-    Spark.get("./recommendation", new RecommendationHandler());
-    // TODO: add dependency injected database interface object to the read and write handlers. add to server constructor as well
-    Spark.get("./databaseread", new DatabaseReadHandler());
-    Spark.get("./databasewrite", new DatabaseWriteHandler());
+    Spark.get("/recommendation", new RecommendationHandler());
+    // TODO: add dependency injected database interface object to the read and write handlers. add
+    // to server constructor as well
+    Spark.get("/databaseread", new DatabaseReadHandler());
+    Spark.get("/databasewrite", new DatabaseWriteHandler());
 
     // moshi building
     Moshi moshi = new Moshi.Builder().build();
