@@ -74,6 +74,15 @@
     </dependency>
 
     <!--
+           MongoDB is a database service
+    -->
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>4.11.1</version>
+    </dependency>
+
+    <!--
            JUnit is a unit testing library for Java.
     -->
     <dependency>
