@@ -32,7 +32,7 @@ function App() {
       }
       <h1>Home Page</h1>
       <GoogleLogin
-        clientId="YOUR_GOOGLE_CLIENT_ID"
+        clientId="518580391302-kslsedv91v0cmvjcdubltrhj2navg7d7.apps.googleusercontent.com"
         buttonText="Login with Google"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
