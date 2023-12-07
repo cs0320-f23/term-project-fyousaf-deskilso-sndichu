@@ -4,6 +4,7 @@ import Recommendation from "./recommendation";
 import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "react-google-login";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 
