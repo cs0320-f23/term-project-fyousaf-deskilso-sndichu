@@ -5,6 +5,7 @@ import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "react-google-login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import googleclientID from "./private/googleclientID";
 
 function App() {
   const responseGoogle = (response) => {
@@ -32,7 +33,7 @@ function App() {
       }
       <h1>Home Page</h1>
       <GoogleLogin
-        clientId="518580391302-kslsedv91v0cmvjcdubltrhj2navg7d7.apps.googleusercontent.com"
+        clientId={googleclientID}
         buttonText="Login with Google"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
