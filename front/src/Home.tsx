@@ -8,14 +8,28 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import googleclientID from "./private/googleclientID";
 import { useNavigate } from "react-router-dom";
 
-function App() {
+function Home() {
   const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
   const responseGoogle = (response) => {
     // Handle the Google authentication response
     //console.log(response);
     //
     // TODO: Add a boolean UseState variable for isLoggedIn, then use
     // stackoverflow post info about making a private route for the routes
+    if (response.profileObj?.email.endsWith("@brown.edu")) {
+      onSuccess: (response) => {
+        setUser(response);
+        console.log("Login successful:", response);
+      };
+      // You can set the user state or perform any other actions here
+    } else {
+      onError: (response) => {
+        console.log("Login failed: Login with your Brown email", response);
+
+        // You may want to redirect or show an error message to the user
+      };
+    }
   };
 
   return (
@@ -60,4 +74,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
