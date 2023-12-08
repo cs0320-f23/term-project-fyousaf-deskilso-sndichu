@@ -57,6 +57,7 @@ function Home() {
           buttonText="Login with Google"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
+          hostedDomain="brown.edu"
           cookiePolicy={"single_host_origin"}
         />
         <div />
