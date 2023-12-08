@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React, { ReactNode } from "react";
 import { Formik } from "formik";
+import { Link } from "react-router-dom";
 
 interface FormProps {}
 
@@ -70,6 +71,9 @@ export default function Form(props: FormProps) {
           </form>
         )}
       </Formik>
+      <Link to={"/recommendation"}>
+        <button type="button">View Recommendation</button>
+      </Link>
     </div>
   );
 }

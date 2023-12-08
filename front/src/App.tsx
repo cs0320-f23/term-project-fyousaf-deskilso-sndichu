@@ -9,11 +9,6 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 
 function App() {
-  const responseGoogle = (response) => {
-    // Handle the Google authentication response
-    console.log(response);
-  };
-
   return (
     // TODO (eventually): add CSS to make the app look nice
 
