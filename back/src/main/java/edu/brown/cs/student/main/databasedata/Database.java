@@ -11,12 +11,12 @@ public interface Database {
   /**
    * Method to write to a database.
    */
-  public void write(String id, Integer rating, List<String> clothing, String timestamp);
+  public void write(Integer rating, List<String> clothing, String timestamp);
 
   /**
    * Method to read to a database
    */
-  public void read();
+  public String read(int index);
 
   // TODO (eventually): added mocked database class and cached database class implementing this
   // interface potentially

@@ -12,8 +12,10 @@ import com.mongodb.client.MongoDatabase;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +28,16 @@ import spark.Route;
 
 /** */
 public class DatabaseWriteHandler implements Route {
+  private Database state;
+  /**
+   *
+   *
+   * @param toUse
+   */
 
+  public DatabaseWriteHandler(Database toUse) {
+    this.state = toUse;
+  }
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
@@ -48,21 +59,24 @@ public class DatabaseWriteHandler implements Route {
       // https://www.mongodb.com/docs/drivers/java/sync/v4.3/fundamentals/connection/connect/#std-label-connect-to-mongodb
       // firebase connection basics: https://firebase.google.com/docs/admin/setup/
 
-      String databaseKey = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
-      MongoClient mongoClient = MongoClients.create(databaseKey);
-      MongoDatabase db = mongoClient.getDatabase("weather_recommendation");
-      List<Document> documents = new ArrayList<>();
-      MongoCollection<Document> coll = db.getCollection("weather_recommendation");
+      String ratingTemp = request.queryParams("rating");
+      Integer rating = null;
+      if (ratingTemp != null) {
+        try {
+          rating = Integer.parseInt(ratingTemp);
+        } catch (Exception e) {
+          rating = rating;
+        }
+      }
 
-      Document doc1 = new Document("name", "Halley's Comet").append("officialName", "1P/Halley").append("orbitalPeriod", 75).append("radius", 3.4175).append("mass", 2.2e14);
-      Document doc2 = new Document("name", "Wild2").append("officialName", "81P/Wild").append("orbitalPeriod", 6.41).append("radius", 1.5534).append("mass", 2.3e13);
-      Document doc3 = new Document("name", "Comet Hyakutake").append("officialName", "C/1996 B2").append("orbitalPeriod", 17000).append("radius", 0.77671).append("mass", 8.8e12);
-      documents.add(doc1);
-      documents.add(doc2);
-      documents.add(doc3);
-      InsertManyResult result = coll.insertMany(documents);
-      result.getInsertedIds().values().forEach(doc -> System.out.println(doc.asObjectId().getValue()));
+      String clothingTemp = request.queryParams("clothing");
+      List<String> clothing = null;
+      if (clothingTemp != null) {
+        clothing = List.of(clothingTemp.split("!"));
+      }
 
+
+      this.state.write(rating, clothing, request.queryParams("timestamp"));
       /*Bson query = eq("name", "Comet Hyakutake");
       try {
         DeleteResult deleted = coll.deleteOne(query);
