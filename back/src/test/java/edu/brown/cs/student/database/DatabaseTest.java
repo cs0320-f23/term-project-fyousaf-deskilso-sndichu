@@ -1,13 +1,14 @@
-package edu.brown.cs.student.otherunittests;
+package edu.brown.cs.student.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
-import edu.brown.cs.student.main.databasehandlers.DatabaseReadHandler;
 import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
+import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -23,13 +24,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
-public class OtherUnitTests {
+public class DatabaseTest {
 
   private final Type mapStringObject =
       Types.newParameterizedType(Map.class, String.class, Object.class);
   private JsonAdapter<Map<String, Object>> mapAdapter;
 
-  /** Prepare for tests by getting server port. */
+  /**
+   * Prepare for tests by getting server port.
+   */
   @BeforeAll
   public static void setupOnce() {
     // Pick an arbitrary free port
@@ -38,21 +41,25 @@ public class OtherUnitTests {
     Logger.getLogger("").setLevel(Level.WARNING); // empty name = root
   }
 
-  /** Establishes endpoint before each test. */
+  /**
+   * Establishes endpoint before each test.
+   */
   @BeforeEach
   public void setup() {
-    Spark.get("/databaseread", new DatabaseReadHandler(new DatabaseDataSource()));
+    Spark.get("/databasewrite", new DatabaseWriteHandler(new DatabaseDataSource()));
     Spark.awaitInitialization(); // don't continue until the server is listening
 
     Moshi moshi = new Moshi.Builder().build();
     mapAdapter = moshi.adapter(mapStringObject);
   }
 
-  /** Allows Spark to reset after each test. */
+  /**
+   * Allows Spark to reset after each test.
+   */
   @AfterEach
   public void tearDown() {
     // Gracefully stop Spark listening on both endpoints
-    Spark.unmap("/databaseread");
+    Spark.unmap("/databasewrite");
     Spark.awaitStop(); // don't proceed until the server is stopped
   }
 
@@ -75,14 +82,15 @@ public class OtherUnitTests {
   @Test
   public void testUnit() throws IOException {
     // Set up the request, make the request
-    HttpURLConnection loadConnection = tryRequest("/databaseread");
+    HttpURLConnection loadConnection = tryRequest("/databasewrite?rating=5");
     // Get the expected response: a success
     assertEquals(200, loadConnection.getResponseCode());
     Map<String, Object> body =
         mapAdapter.fromJson(new Buffer().readFrom(loadConnection.getInputStream()));
     assertEquals("success", body.get("result"));
     loadConnection.disconnect();
-    assertEquals(1, 1);
+    assertEquals(Integer.valueOf(5).toString(), new DatabaseDataSource().read(0));
+    new DatabaseDataSource().deleteAll();
   }
 
   // citation: the below helper method is directly copied from the lecture code.
@@ -91,7 +99,7 @@ public class OtherUnitTests {
    * Helper to start a connection to a specific API endpoint/params
    *
    * @param apiCall the call string, including endpoint (Note: this would be better if it had more
-   *     structure!)
+   *                structure!)
    * @return the connection for the given URL, just after connecting
    * @throws IOException if the connection fails for some reason
    */

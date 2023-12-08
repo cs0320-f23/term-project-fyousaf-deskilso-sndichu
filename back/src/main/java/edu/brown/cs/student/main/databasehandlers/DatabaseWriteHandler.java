@@ -1,19 +1,43 @@
 package edu.brown.cs.student.main.databasehandlers;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertManyResult;
+import com.mongodb.client.MongoDatabase;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 /** */
 public class DatabaseWriteHandler implements Route {
+  private Database state;
+  /**
+   *
+   *
+   * @param toUse
+   */
 
+  public DatabaseWriteHandler(Database toUse) {
+    this.state = toUse;
+  }
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
@@ -35,7 +59,33 @@ public class DatabaseWriteHandler implements Route {
       // https://www.mongodb.com/docs/drivers/java/sync/v4.3/fundamentals/connection/connect/#std-label-connect-to-mongodb
       // firebase connection basics: https://firebase.google.com/docs/admin/setup/
 
-      String databaseKey = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
+      String ratingTemp = request.queryParams("rating");
+      Integer rating = null;
+      if (ratingTemp != null) {
+        try {
+          rating = Integer.parseInt(ratingTemp);
+        } catch (Exception e) {
+          rating = rating;
+        }
+      }
+
+      String clothingTemp = request.queryParams("clothing");
+      List<String> clothing = null;
+      if (clothingTemp != null) {
+        clothing = List.of(clothingTemp.split("!"));
+      }
+
+
+      this.state.write(rating, clothing, request.queryParams("timestamp"));
+      /*Bson query = eq("name", "Comet Hyakutake");
+      try {
+        DeleteResult deleted = coll.deleteOne(query);
+        System.out.println("Deleted document count: " + deleted.getDeletedCount());
+        result.getInsertedIds().values().forEach(doc -> System.out.println(doc.asObjectId().getValue()));
+      } catch (MongoException me) {
+        System.err.println("Unable to delete due to an error: " + me);
+      }
+      */
 
       responseMap.put("result", "success");
       return mapAdapter.toJson(responseMap);

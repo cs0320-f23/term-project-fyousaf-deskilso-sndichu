@@ -5,6 +5,8 @@ import static spark.Spark.after;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasedata.Database;
+import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
 import edu.brown.cs.student.main.databasehandlers.DatabaseReadHandler;
 import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
 import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
@@ -20,7 +22,7 @@ public class Server {
   static final int port = 3232;
 
   /** Constructor for the server, starting it with Spark Java. */
-  public Server() {
+  public Server(Database database) {
     // Set up our SparkJava server and allow access:
     Spark.port(port);
     after(
@@ -33,8 +35,8 @@ public class Server {
     Spark.get("/recommendation", new RecommendationHandler());
     // TODO: add dependency injected database interface object to the read and write handlers. add
     // to server constructor as well
-    Spark.get("/databaseread", new DatabaseReadHandler());
-    Spark.get("/databasewrite", new DatabaseWriteHandler());
+    Spark.get("/databaseread", new DatabaseReadHandler(database));
+    Spark.get("/databasewrite", new DatabaseWriteHandler(database));
 
     // moshi building
     Moshi moshi = new Moshi.Builder().build();
@@ -72,6 +74,6 @@ public class Server {
    * @param args command line arguments. Not used in this server.
    */
   public static void main(String[] args) {
-    Server server = new Server();
+    Server server = new Server(new DatabaseDataSource());
   }
 }
