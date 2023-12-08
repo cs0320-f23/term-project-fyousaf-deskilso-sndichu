@@ -51,10 +51,10 @@ function Home() {
         <h1>Home Page</h1>
         <GoogleLogin
           clientId={googleclientID}
-          buttonText="Login with Google"
+          buttonText={"Login with Google"}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
-          hostedDomain="brown.edu"
+          hostedDomain={"brown.edu"}
           cookiePolicy={"single_host_origin"}
         />
         <div />
