@@ -42,7 +42,7 @@ function App() {
       <div>
         <div
           style={{
-            textAlign: "left",
+            textAlign: "center",
             marginTop: "80px",
             backgroundColor: "purple",
             padding: "30px",
@@ -51,13 +51,13 @@ function App() {
           <h1>Weather</h1>
         </div>
         <div
-          style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
+          style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}
         >
           <Link to="/">
-            <button style={{ marginRight: "10px" }}>Home</button>
+            <button style={{ marginLeft: "10px" }}>Home</button>
           </Link>
           <Link to="/recommendation">
-            <button style={{ marginRight: "10px" }}>Recommendation</button>
+            <button style={{ marginLeft: "10px" }}>Recommendation</button>
           </Link>
           <Link to="/form">
             <button>Form</button>
