@@ -5,7 +5,7 @@ import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "react-google-login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recommendation" element={<Recommendation />} />
+          <Route path="/form" element={<Form />} />
         </Routes>
       </div>
     </BrowserRouter>
