@@ -48,9 +48,6 @@ function Home() {
       <Rating />
       <Recommendation /> */}
 
-        {
-          // TO DO: figure out google client ID for authorization with google cloud
-        }
         <h1>Home Page</h1>
         <GoogleLogin
           clientId={googleclientID}

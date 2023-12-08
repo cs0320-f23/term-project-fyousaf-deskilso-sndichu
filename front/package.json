@@ -30,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-map-gl": "^7.1.6",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.20.1"
   },
   "devDependencies": {

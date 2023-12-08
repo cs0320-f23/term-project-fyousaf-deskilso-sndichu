@@ -40,7 +40,29 @@ function App() {
 
     <BrowserRouter>
       <div>
-        <h1>Login with your Brown Google Account</h1>
+        <div
+          style={{
+            textAlign: "left",
+            marginTop: "80px",
+            backgroundColor: "purple",
+            padding: "30px",
+          }}
+        >
+          <h1>Weather</h1>
+        </div>
+        <div
+          style={{ display: "flex", alignItems: "center", marginRight: "20px" }}
+        >
+          <Link to="/">
+            <button style={{ marginRight: "10px" }}>Home</button>
+          </Link>
+          <Link to="/recommendation">
+            <button style={{ marginRight: "10px" }}>Recommendation</button>
+          </Link>
+          <Link to="/form">
+            <button>Form</button>
+          </Link>
+        </div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recommendation" element={<Recommendation />} />
