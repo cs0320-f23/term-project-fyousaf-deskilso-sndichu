@@ -11,7 +11,6 @@ import LoginPage from "./Login";
 import googleclientID from "./private/googleclientID";
 import Login from "./Login";
 import Initial from "./initial";
-
 function App() {
   const [user, setUser] = useState<any>(null);
   const responseGoogle = (response) => {

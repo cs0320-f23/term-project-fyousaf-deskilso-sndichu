@@ -59,6 +59,7 @@ function Initial() {
       >
         <h1>Login with your Brown email</h1>
         <GoogleLogin
+          clientID={googleclientID}
           onSuccess={responseGoogle}
           onError={() => {
             console.log("failure");
