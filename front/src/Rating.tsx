@@ -1,5 +1,6 @@
 import { useState } from "react";
 import React, { ReactNode } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 interface RatingProps {}
 
@@ -30,6 +31,18 @@ export default function Rating(props: RatingProps) {
         padding: "30px",
       }}
     >
+      <Link to="/home">
+        <button style={{ marginLeft: "10px" }}>Home</button>
+      </Link>
+      <Link to="/recommendation">
+        <button style={{ marginLeft: "10px" }}>Recommendation</button>
+      </Link>
+      <Link to="/rating">
+        <button style={{ marginLeft: "10px" }}> Rating</button>
+      </Link>
+      <Link to="/form">
+        <button style={{ marginLeft: "10px" }}>Form</button>
+      </Link>
       <h2>On a scale of 1 to 5, how cold do you feel compared to others?</h2>
       <form>
         <label>

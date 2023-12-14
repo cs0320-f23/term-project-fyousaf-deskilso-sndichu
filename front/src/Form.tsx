@@ -12,9 +12,44 @@ interface error {
 
 export default function Form(props: FormProps) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
+
+  const handleRatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedRating = parseInt(event.target.value, 10);
+    setRating(selectedRating);
+  };
+
+  const ratingOptions = [
+    { value: 1, label: "Much more" },
+    { value: 2, label: "Slightly more" },
+    { value: 3, label: "As cold as others" },
+    { value: 4, label: "Slightly less" },
+    { value: 5, label: "Extremely less" },
+  ];
 
   return (
-    <div style={{ backgroundColor: "#f0f0f0", padding: "30px" }}>
+    <div
+      style={{
+        textAlign: "center",
+        color: "black",
+        fontFamily: "Times New Roman, Times, serif",
+        marginTop: "50px",
+        backgroundColor: "#b07e73",
+        padding: "30px",
+      }}
+    >
+      <Link to="/home">
+        <button style={{ marginLeft: "10px" }}>Home</button>
+      </Link>
+      <Link to="/recommendation">
+        <button style={{ marginLeft: "10px" }}>Recommendation</button>
+      </Link>
+      <Link to="/rating">
+        <button style={{ marginLeft: "10px" }}> Rating</button>
+      </Link>
+      <Link to="/form">
+        <button style={{ marginLeft: "10px" }}>Form</button>
+      </Link>
       <h2>Weather Inputter</h2>
       <button onClick={() => setModalIsOpen(true)}>Open Form</button>
 
@@ -65,7 +100,7 @@ export default function Form(props: FormProps) {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email">Email:</label>
+              {/*<label htmlFor="email">Email:</label>
               <input
                 type="email"
                 name="email"
@@ -84,7 +119,27 @@ export default function Form(props: FormProps) {
               />
               {errors.password && touched.password && (
                 <div>{errors.password}</div>
-              )}
+              )}**/}
+              <p>
+                On a scale of 1 to 5, how cold do you feel compared to others?
+              </p>
+              <form>
+                <label>
+                  Select Rating:
+                  <select value={rating || ""} onChange={handleRatingChange}>
+                    <option value="" disabled>
+                      Select rating
+                    </option>
+                    {ratingOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {`${option.value} - ${option.label}`}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </form>
+              {rating && <p>You rated: {rating}</p>}
+
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>

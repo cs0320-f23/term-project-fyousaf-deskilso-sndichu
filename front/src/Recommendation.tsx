@@ -8,6 +8,18 @@ export default function Recommendation(props: RecommendationProps) {
   return (
     // TODO (eventually): add in real recommendation data from our algorithm using an API call
     <div>
+      <Link to="/home">
+        <button style={{ marginLeft: "10px" }}>Home</button>
+      </Link>
+      <Link to="/recommendation">
+        <button style={{ marginLeft: "10px" }}>Recommendation</button>
+      </Link>
+      <Link to="/rating">
+        <button style={{ marginLeft: "10px" }}> Rating</button>
+      </Link>
+      <Link to="/form">
+        <button style={{ marginLeft: "10px" }}>Form</button>
+      </Link>
       <h2>
         Get a Personalized Recommendation! Fill out form for your recommendation
       </h2>

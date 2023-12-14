@@ -35,6 +35,18 @@ function Home() {
   return (
     // TODO (eventually): add CSS to make the app look nice
     <div>
+      <Link to="/home">
+        <button style={{ marginLeft: "10px" }}>Home</button>
+      </Link>
+      <Link to="/recommendation">
+        <button style={{ marginLeft: "10px" }}>Recommendation</button>
+      </Link>
+      <Link to="/rating">
+        <button style={{ marginLeft: "10px" }}> Rating</button>
+      </Link>
+      <Link to="/form">
+        <button style={{ marginLeft: "10px" }}>Form</button>
+      </Link>
       <div
         style={{
           textAlign: "center",
@@ -59,14 +71,6 @@ function Home() {
         />
         <div />
         <div />
-        <button type="button" onClick={() => navigate("/form")}>
-          {" "}
-          Form
-        </button>
-        <button type="button" onClick={() => navigate("/recommendation")}>
-          {" "}
-          Recommendation
-        </button>
       </div>
     </div>
   );

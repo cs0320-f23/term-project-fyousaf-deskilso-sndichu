@@ -52,9 +52,9 @@ function Initial() {
       <div
         style={{
           textAlign: "center",
-          marginTop: "50px",
+          marginTop: "100px",
           backgroundColor: "#b07e73",
-          padding: "30px",
+          padding: "100px",
         }}
       >
         <h1>Login with your Brown email</h1>

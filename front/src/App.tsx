@@ -44,30 +44,24 @@ function App() {
         <div
           style={{
             textAlign: "center",
-            marginTop: "80px",
-            backgroundColor: "purple",
-            padding: "30px",
+            color: "black",
+            fontFamily: "Times New Roman, Times, serif",
+            marginTop: "0px",
+            backgroundColor: "brown",
+            padding: "10px",
           }}
         >
           <h1>Weather</h1>
         </div>
         <div
           style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}
-        >
-          {/*<Link to="/">
-            <button style={{ marginLeft: "10px" }}>Home</button>
-          </Link>
-          <Link to="/recommendation">
-            <button style={{ marginLeft: "10px" }}>Recommendation</button>
-          </Link>
-          <Link to="/form">
-            <button>Form</button>
-          </Link> **/}
-        </div>
+        ></div>
         <Routes>
           <Route path="/" element={<Initial />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/recommendation" element={<Recommendation />} />
           <Route path="/form" element={<Form />} />
+          <Route path="/rating" element={<Rating />} />
         </Routes>
       </div>
     </BrowserRouter>
