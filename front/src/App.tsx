@@ -10,6 +10,7 @@ import Home from "./Home";
 import LoginPage from "./Login";
 import googleclientID from "./private/googleclientID";
 import Login from "./Login";
+import Initial from "./initial";
 
 function App() {
   const [user, setUser] = useState<any>(null);
@@ -53,7 +54,7 @@ function App() {
         <div
           style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}
         >
-          <Link to="/">
+          {/*<Link to="/">
             <button style={{ marginLeft: "10px" }}>Home</button>
           </Link>
           <Link to="/recommendation">
@@ -61,10 +62,10 @@ function App() {
           </Link>
           <Link to="/form">
             <button>Form</button>
-          </Link>
+          </Link> **/}
         </div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Initial />} />
           <Route path="/recommendation" element={<Recommendation />} />
           <Route path="/form" element={<Form />} />
         </Routes>
