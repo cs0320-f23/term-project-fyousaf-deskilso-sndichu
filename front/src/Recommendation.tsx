@@ -20,6 +20,9 @@ export default function Recommendation(props: RecommendationProps) {
       <Link to="/form">
         <button style={{ marginLeft: "10px" }}>Form</button>
       </Link>
+      <Link to="/aboutus">
+        <button style={{ marginLeft: "10px" }}>AboutUs</button>
+      </Link>
       <h2>
         Get a Personalized Recommendation! Fill out form for your recommendation
       </h2>

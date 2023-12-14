@@ -67,6 +67,9 @@ function Home() {
         <Link to="/form">
           <button style={{ marginLeft: "10px" }}>Form</button>
         </Link>
+        <Link to="/aboutus">
+          <button style={{ marginLeft: "10px" }}>AboutUs</button>
+        </Link>
         <div />
         <div />
       </div>

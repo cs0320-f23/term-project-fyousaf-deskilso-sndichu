@@ -69,14 +69,6 @@ function Initial() {
         />
         <div />
         <div />
-        {/*<button type="button" onClick={() => navigate("/form")}>
-          {" "}
-          Form
-        </button>
-        <button type="button" onClick={() => navigate("/recommendation")}>
-          {" "}
-          Recommendation
-    </button> **/}
       </div>
     </div>
   );

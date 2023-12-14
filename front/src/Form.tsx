@@ -50,6 +50,9 @@ export default function Form(props: FormProps) {
       <Link to="/form">
         <button style={{ marginLeft: "10px" }}>Form</button>
       </Link>
+      <Link to="/aboutus">
+        <button style={{ marginLeft: "10px" }}>AboutUs</button>
+      </Link>
       <h2>Weather Inputter</h2>
       <button onClick={() => setModalIsOpen(true)}>Open Form</button>
 

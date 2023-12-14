@@ -11,6 +11,8 @@ import LoginPage from "./Login";
 import googleclientID from "./private/googleclientID";
 import Login from "./Login";
 import Initial from "./initial";
+import AboutUs from "./AboutUs";
+
 function App() {
   const [user, setUser] = useState<any>(null);
   const responseGoogle = (response) => {
@@ -61,6 +63,7 @@ function App() {
           <Route path="/recommendation" element={<Recommendation />} />
           <Route path="/form" element={<Form />} />
           <Route path="/rating" element={<Rating />} />
+          <Route path="/aboutus" element={<AboutUs />} />
         </Routes>
       </div>
     </BrowserRouter>
