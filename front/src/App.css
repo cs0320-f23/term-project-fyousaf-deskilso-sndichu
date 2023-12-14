@@ -21,3 +21,9 @@
   font-size: calc(1px + 2vmin);
   color: rgb(215, 195, 195);
 }
+
+.card-flex {
+  display: flex;
+  background-color: indianred;
+  gap: 10px;
+}

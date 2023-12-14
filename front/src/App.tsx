@@ -39,32 +39,36 @@ function App() {
 
   return (
     // TODO (eventually): add CSS to make the app look nice
-
     <BrowserRouter>
-      <div>
+      <div style={{ backgroundColor: "#b07e73", minHeight: "100vh" }}>
         <div
           style={{
             textAlign: "center",
             color: "black",
             fontFamily: "Times New Roman, Times, serif",
             marginTop: "0px",
-            backgroundColor: "brown",
+            backgroundColor: "#b07e73",
             padding: "10px",
           }}
         >
           <h1>Weather</h1>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "bisque",
+              marginLeft: "20px",
+            }}
+          ></div>
+          <Routes>
+            <Route path="/" element={<Initial />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/recommendation" element={<Recommendation />} />
+            <Route path="/form" element={<Form />} />
+            <Route path="/rating" element={<Rating />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+          </Routes>
         </div>
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "20px" }}
-        ></div>
-        <Routes>
-          <Route path="/" element={<Initial />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/recommendation" element={<Recommendation />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/rating" element={<Rating />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-        </Routes>
       </div>
     </BrowserRouter>
   );

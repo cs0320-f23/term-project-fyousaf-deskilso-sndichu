@@ -1,6 +1,7 @@
 import { Navbar } from "react-bootstrap";
 // import headshots from "./public"
 import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // Defines TeamMember interface which specifies properties of the team members
 interface TeamMember {
@@ -17,10 +18,10 @@ const team: TeamMember[] = [
   {
     name: "Fatima Yousaf",
     year: "2025",
-    concentration: "Business-Economics and Computer Science",
+    concentration: "Business-Economics & Computer Science",
     hometown: "Faisalabad, Pakistan",
     favoutfitprop: "Sweaters",
-    picture: "https://i.imgur.com/prDrI6W.png",
+    picture: "https://i.imgur.com/G33XovG.jpg",
   },
   {
     name: "David Eskilson",
@@ -28,7 +29,7 @@ const team: TeamMember[] = [
     concentration: "",
     hometown: "",
     favoutfitprop: "",
-    picture: "https://i.imgur.com/2ARly61.png",
+    picture: "",
   },
   {
     name: "Stanley Ndichu",
@@ -36,7 +37,7 @@ const team: TeamMember[] = [
     concentration: "",
     hometown: "",
     favoutfitprop: "",
-    picture: "https://i.imgur.com/3BzaSfc.png",
+    picture: "",
   },
 ];
 // React component that returns the JSX that describes the "About Us" page.
@@ -48,23 +49,64 @@ const team: TeamMember[] = [
 function AboutUs() {
   return (
     <div id="About-Us" aria-label="About Us">
-      <Navbar />
-      <h1>Meet Our Team</h1>
-      <div className="card-flex">
-        {team.map((member) => (
-          <div
-            className="card"
-            data-testid="team-member-card"
-            key={member.name}
-          >
-            <img className="headshot" src={member.picture} alt={member.name} />
-            <h2>{member.name}</h2>
-            <p>Year: {member.year}</p>
-            <p>Concentration: {member.concentration}</p>
-            <p>Hometown: {member.hometown}</p>
-            <p>Favorite Fashion Piece: {member.favoutfitprop}</p>
-          </div>
-        ))}
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "20px",
+          backgroundColor: "rosybrown",
+          paddingTop: "10px",
+          paddingBottom: "10px",
+          minHeight: "80vh",
+        }}
+      >
+        <h2>Meet Our Team</h2>
+        <Navbar />
+        <Link to="/home">
+          <button style={{ marginLeft: "10px", marginBottom: "30px" }}>
+            Home
+          </button>
+        </Link>
+        <Link to="/recommendation">
+          <button style={{ marginLeft: "10px" }}>Recommendation</button>
+        </Link>
+        <Link to="/rating">
+          <button style={{ marginLeft: "10px" }}> Rating</button>
+        </Link>
+        <Link to="/form">
+          <button style={{ marginLeft: "10px" }}>Form</button>
+        </Link>
+        <Link to="/aboutus">
+          <button style={{ marginLeft: "10px" }}>About Us</button>
+        </Link>
+        <div
+          className="card-flex"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          {team.map((member) => (
+            <div
+              className="card"
+              data-testid="team-member-card"
+              key={member.name}
+            >
+              <img
+                className="headshot"
+                src={member.picture}
+                alt={member.name}
+                style={{ width: "150px", height: "150px" }}
+              />
+              <h2>{member.name}</h2>
+              <p>Year: {member.year}</p>
+              <p>Concentration: {member.concentration}</p>
+              <p>Hometown: {member.hometown}</p>
+              <p>Favorite thing to wear: {member.favoutfitprop}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
