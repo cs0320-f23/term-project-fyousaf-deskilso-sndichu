@@ -20,16 +20,34 @@ export default function Recommendation(props: RecommendationProps) {
       <Link to="/aboutus">
         <button style={{ marginLeft: "10px" }}>About Us</button>
       </Link>
-      <h2>
-        Get a Personalized Recommendation! Fill out form for your recommendation
-      </h2>
-      <Link to={"/form"}>
-        <button type="button">Form</button>
-      </Link>
-      <button aria-label="Use this button to get a recommendation for the current weather, personalized and based on other user's data">
-        Get Recommendation
-      </button>
-      <p>Your recommendation for today is the following: </p>
+      <div
+        style={{
+          backgroundColor: "rosybrown",
+          minHeight: "40vh",
+          textAlign: "center",
+          marginBottom: "20px",
+          marginTop: "20px",
+        }}
+      >
+        <h2
+          style={{
+            backgroundColor: "rosybrown",
+            textAlign: "center",
+            marginBottom: "20px",
+            marginTop: "50px",
+          }}
+        >
+          Get a Personalized Recommendation! Fill out form for your
+          recommendation
+        </h2>
+        <Link to={"/form"}>
+          <button type="button">Form</button>
+        </Link>
+        <button aria-label="Use this button to get a recommendation for the current weather, personalized and based on other user's data">
+          Get Recommendation
+        </button>
+        <p>Your recommendation for today is the following: </p>
+      </div>
     </div>
   );
 }

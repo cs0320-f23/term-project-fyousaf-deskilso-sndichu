@@ -19,11 +19,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(1px + 2vmin);
-  color: rgb(215, 195, 195);
+  color: indianred;
 }
 
 .card-flex {
   display: flex;
-  background-color: indianred;
+  background-color: lavenderblush;
   gap: 10px;
 }

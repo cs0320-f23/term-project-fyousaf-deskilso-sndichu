@@ -40,23 +40,31 @@ function App() {
   return (
     // TODO (eventually): add CSS to make the app look nice
     <BrowserRouter>
-      <div style={{ backgroundColor: "#b07e73", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "lavenderblush", minHeight: "500vh" }}>
         <div
           style={{
             textAlign: "center",
             color: "black",
             fontFamily: "Times New Roman, Times, serif",
             marginTop: "0px",
-            backgroundColor: "#b07e73",
+            marginBottom: "10px",
+            backgroundColor: "lavenderblush",
             padding: "10px",
           }}
         >
-          <h1>Weather</h1>
+          <div
+            style={{
+              background: "lightsteelblue",
+              padding: "5px",
+            }}
+          >
+            <h1>Weather</h1>
+          </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "bisque",
+              backgroundColor: "lightsteelblue",
               marginLeft: "20px",
             }}
           ></div>
