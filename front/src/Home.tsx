@@ -61,9 +61,6 @@ function Home() {
         <Link to="/recommendation">
           <button style={{ marginLeft: "10px" }}>Recommendation</button>
         </Link>
-        <Link to="/rating">
-          <button style={{ marginLeft: "10px" }}> Rating</button>
-        </Link>
         <Link to="/form">
           <button style={{ marginLeft: "10px" }}>Form</button>
         </Link>

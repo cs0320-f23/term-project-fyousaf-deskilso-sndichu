@@ -7,7 +7,8 @@ import Modal from "react-modal";
 interface FormProps {}
 
 interface error {
-  email: string;
+  response: string;
+  feedback: string;
 }
 
 export default function Form(props: FormProps) {
@@ -44,9 +45,6 @@ export default function Form(props: FormProps) {
       <Link to="/recommendation">
         <button style={{ marginLeft: "10px" }}>Recommendation</button>
       </Link>
-      <Link to="/rating">
-        <button style={{ marginLeft: "10px" }}> Rating</button>
-      </Link>
       <Link to="/form">
         <button style={{ marginLeft: "10px" }}>Form</button>
       </Link>
@@ -73,15 +71,12 @@ export default function Form(props: FormProps) {
         }}
       >
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ response: "", feedback: "" }}
           validate={(values) => {
-            let errors: error = { email: "" };
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
+            let errors: error = { response: "", feedback: "" };
+
+            if (!values.response) {
+              errors.response = "*Required";
             }
             return errors;
           }}
@@ -103,31 +98,25 @@ export default function Form(props: FormProps) {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              {/*<label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                name="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-              {errors.email && touched.email && <div>{errors.email}</div>}
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              {errors.password && touched.password && (
-                <div>{errors.password}</div>
-              )}**/}
-              <p>
-                On a scale of 1 to 5, how cold do you feel compared to others?
+              <p
+                style={{
+                  fontFamily: "Times New Roman, Times, serif",
+                  marginTop: "20px",
+                  marginBottom: "10px",
+                }}
+              >
+                <strong>
+                  On a scale of 1 to 5, how cold do you feel compared to others?
+                </strong>
               </p>
               <form>
-                <label>
+                <label
+                  style={{
+                    fontFamily: "Times New Roman, Times, serif",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                >
                   Select Rating:
                   <select value={rating || ""} onChange={handleRatingChange}>
                     <option value="" disabled>
@@ -141,11 +130,208 @@ export default function Form(props: FormProps) {
                   </select>
                 </label>
               </form>
-              {rating && <p>You rated: {rating}</p>}
+              {rating && (
+                <p
+                  style={{
+                    fontFamily: "Times New Roman, Times, serif",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  You rated: {rating}
+                </p>
+              )}
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    fontFamily: "Times New Roman, Times, serif",
+                    marginTop: "20px",
+                    marginBottom: "0px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Current Location:
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "0px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <label
+                    style={{ fontFamily: "Times New Roman, Times, serif" }}
+                  >
+                    <input type="radio" name="location" value="inside" />
+                    Inside
+                  </label>
+                  <label
+                    style={{ fontFamily: "Times New Roman, Times, serif" }}
+                  >
+                    <input type="radio" name="location" value="outside" />
+                    Outside
+                  </label>
+                </div>
+              </div>
 
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
+              <div>
+                <label
+                  style={{
+                    fontFamily: "Times New Roman, Times, serif",
+                    fontWeight: "bold",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  What pieces of clothing are you wearing right now?
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    fontFamily: "Times New Roman, Times, serif",
+                  }}
+                >
+                  <label>
+                    <input type="checkbox" name="item" value="pants" />
+                    Pants/Sweatpants/Jeans/Trousers
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="sweater" />
+                    Sweater/Cardigan
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="shorts" />
+                    Shorts/Skirt
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="tank top" />
+                    Tank-Top/T-Shirt
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="coat" />
+                    Coat/Winter-Jacket/Puffer
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="item"
+                      value="head accessories"
+                    />
+                    Hat/Beanie/Cap/Ear-Muffs
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="hands" />
+                    Gloves/Mittens/Fuzzy-Socks/Scarf
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="winter shoes" />
+                    Winter-Boots/Fur-Lined-Shoes
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="summer shoes" />
+                    Sandals/Flip-Flops
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="sneakers" />
+                    Sneakers/Trainers/Crocs
+                  </label>
+                  <label>
+                    <input type="checkbox" name="item" value="Other" />
+                    Other
+                  </label>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  fontFamily: "Times New Roman, Times, serif",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                }}
+              ></div>
+              <label
+                htmlFor="response"
+                style={{
+                  fontFamily: "Times New Roman, Times, serif",
+                  marginTop: "80px",
+                  marginBottom: "20px",
+                }}
+              >
+                <strong style={{ marginTop: "20px", display: "block" }}>
+                  What would you recommend for an outdoor outfit today?
+                </strong>
+                <i>
+                  *Please separate items with a '+' sign. e.g. "shirt + pant"
+                </i>
+                :
+              </label>
+              <input
+                type="text"
+                name="response"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.response}
+                style={{
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  width: "100%",
+                  height: "100px",
+                }}
+              />
+              {errors.response && touched.response && (
+                <div
+                  style={{
+                    color: "red",
+                    fontFamily: "Times New Roman, Times, serif",
+                  }}
+                >
+                  {errors.response}
+                </div>
+              )}
+              <div
+                style={{
+                  fontFamily: "Times New Roman, Times, serif",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                }}
+              ></div>
+              <label
+                htmlFor="feedback"
+                style={{
+                  fontFamily: "Times New Roman, Times, serif",
+                  marginTop: "80px",
+                  marginBottom: "20px",
+                }}
+              >
+                <strong style={{ marginTop: "20px", display: "block" }}>
+                  What would you remove or add to your current outfit?
+                </strong>
+              </label>
+              <input
+                type="text"
+                name="feedback"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.feedback}
+                style={{
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  width: "100%",
+                  height: "100px",
+                }}
+              />
+              <div style={{ textAlign: "center" }}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{ margin: "auto" }}
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           )}
         </Formik>
