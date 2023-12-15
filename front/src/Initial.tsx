@@ -25,6 +25,7 @@ function Initial() {
       console.log("Login successful:", response);
 
       console.log("Login failed: Login with your Brown email", response);
+      navigate("/home");
 
       // You may want to redirect or show an error message to the user
     }
