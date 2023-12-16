@@ -26,9 +26,9 @@ const team: TeamMember[] = [
   {
     name: "David Eskilson",
     year: "2026",
-    concentration: "Computer Science with something else",
+    concentration: "Computer Science (maybe with something else)",
     hometown: "Chicago",
-    favoutfitprop: "Hoodies",
+    favoutfitprop: "Hoodies (maybe)",
     picture: "",
   },
   {

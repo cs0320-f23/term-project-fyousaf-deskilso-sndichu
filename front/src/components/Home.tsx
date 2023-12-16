@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Form from "./form";
-import Recommendation from "./recommendation";
+import Form from "./Form";
+import Recommendation from "./Recommendation";
 import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "react-google-login";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import googleclientID from "./private/googleclientID";
+import googleclientID from "../private/googleclientID";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -56,7 +56,9 @@ function Home() {
       </h2>
       <div>
         <Link to="/home">
-          <button style={{ marginLeft: "10px" }}>Home</button>
+          <button className="button" style={{ marginLeft: "10px" }}>
+            Home
+          </button>
         </Link>
         <Link to="/recommendation">
           <button style={{ marginLeft: "10px" }}>Recommendation</button>

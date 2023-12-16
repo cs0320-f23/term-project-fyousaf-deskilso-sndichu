@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import Form from "./form";
-import Recommendation from "./recommendation";
+import Form from "./Form";
+import Recommendation from "./Recommendation";
 import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "react-google-login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Home from "./Home";
 import LoginPage from "./Login";
-import googleclientID from "./private/googleclientID";
+import googleclientID from "../private/googleclientID";
 import Login from "./Login";
-import Initial from "./initial";
+import Initial from "./Initial";
 import AboutUs from "./AboutUs";
+import "./styles/App.css";
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<boolean>(false);
   const responseGoogle = (response) => {
     // Handle the Google authentication response
     //console.log(response);
@@ -37,8 +38,14 @@ function App() {
     }
   };
 
+  const ProtectedRoute = ({ user, redirectPath = "/", children }) => {
+    if (!user) {
+      return <Navigate to={redirectPath} replace />;
+    }
+
+    return children;
+  };
   return (
-    // TODO (eventually): add CSS to make the app look nice
     <BrowserRouter>
       <div style={{ backgroundColor: "lavenderblush", minHeight: "500vh" }}>
         <div
@@ -69,12 +76,48 @@ function App() {
             }}
           ></div>
           <Routes>
-            <Route path="/" element={<Initial />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/recommendation" element={<Recommendation />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/rating" element={<Rating />} />
-            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/" element={<Initial setUser={setUser} />} />
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute user={user}>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/recommendation"
+              element={
+                <ProtectedRoute user={user}>
+                  <Recommendation />{" "}
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/form"
+              element={
+                <ProtectedRoute user={user}>
+                  <Form />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/rating"
+              element={
+                <ProtectedRoute user={user}>
+                  <Rating />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/aboutus"
+              element={
+                <ProtectedRoute user={user}>
+                  <AboutUs />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<p>There's nothing here: 404!</p>} />
           </Routes>
         </div>
       </div>

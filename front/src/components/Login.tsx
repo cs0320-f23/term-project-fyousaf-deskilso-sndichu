@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GoogleLogin, GoogleLoginProps } from "@react-oauth/google";
-import googleclientID from "./private/googleclientID";
+import googleclientID from "../private/googleclientID";
 import { useGoogleLogin } from "react-google-login";
 
 export default function LoginPage(props: GoogleLoginProps) {
@@ -27,10 +27,10 @@ export default function LoginPage(props: GoogleLoginProps) {
         <br />
         <br />
         <GoogleLogin
-          clientID={googleclientID}
+          //clientID={googleclientID}
           //buttonText="Login with Google"
           onSuccess={responseMessage}
-          onError={responseMessage}
+          //onError={responseMessage}
           hosted_domain="brown.edu"
           //cookiePolicy={"single_host_origin"}
         />

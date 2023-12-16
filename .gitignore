@@ -35,9 +35,8 @@ s0.iml
 .vite
 
 # private folder
-front/private
+front/src/private
 
-# from maps gearup
 # dependencies
 /node_modules
 /.pnp
@@ -45,7 +44,6 @@ front/private
 
 # testing
 /coverage
-
 
 # production
 /build

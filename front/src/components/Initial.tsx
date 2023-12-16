@@ -1,17 +1,21 @@
-import React, { useState } from "react";
-import Form from "./form";
-import Recommendation from "./recommendation";
+import React, { Dispatch, useState } from "react";
+import Form from "./Form";
+import Recommendation from "./Recommendation";
 import Rating from "./Rating";
 import ReactDOM from "react-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import googleclientID from "./private/googleclientID";
+import googleclientID from "../private/googleclientID";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-function Initial() {
+interface initialProps {
+  setUser: Dispatch<boolean>;
+}
+
+function Initial(props: initialProps) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
+  //const [user, setUser] = useState<any>(null);
   const responseGoogle = (response) => {
     console.log("here");
     // Handle the Google authentication response
@@ -24,15 +28,14 @@ function Initial() {
       // if ()
       console.log("Login successful:", response);
 
-      console.log("Login failed: Login with your Brown email", response);
+      props.setUser(true);
       navigate("/home");
-
       // You may want to redirect or show an error message to the user
     }
     // You can set the user state or perform any other actions here
     else {
       onSuccess: (response) => {
-        setUser(response);
+        props.setUser(false);
         console.log("Login successful:", response);
       };
       onError: (response) => {
@@ -60,7 +63,7 @@ function Initial() {
       >
         <h1>Login with your Brown email</h1>
         <GoogleLogin
-          clientID={googleclientID}
+          //clientID={googleclientID}
           onSuccess={responseGoogle}
           onError={() => {
             console.log("failure");
