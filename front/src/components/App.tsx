@@ -12,7 +12,7 @@ import googleclientID from "../private/googleclientID";
 import Login from "./Login";
 import Initial from "./Initial";
 import AboutUs from "./AboutUs";
-import "./styles/App.css";
+import "../styles/App.css";
 
 function App() {
   const [user, setUser] = useState<boolean>(false);
