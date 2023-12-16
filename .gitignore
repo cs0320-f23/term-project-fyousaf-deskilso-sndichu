@@ -36,6 +36,7 @@ s0.iml
 
 # private folder
 front/src/private
+front/src/private/
 
 # dependencies
 /node_modules
