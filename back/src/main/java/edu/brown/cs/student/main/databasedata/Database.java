@@ -6,7 +6,6 @@ import java.util.List;
  * Interface representing a database datasource.
  */
 public interface Database {
-  // TODO: determine effective parameters for these methods
 
   /**
    * Method to write to a database.
@@ -17,6 +16,8 @@ public interface Database {
    * Method to read to a database
    */
   public String read(int index);
+
+  public String readAllOutfits();
 
   // TODO (eventually): added mocked database class and cached database class implementing this
   // interface potentially

@@ -24,7 +24,11 @@ import org.bson.types.ObjectId;
  * Database datasource class.
  */
 public class DatabaseDataSource implements Database {
-  // TODO: Choose database library and then add reading/writing functionality here
+
+  // TODO: Implement this method once the record is finalized
+  public String readAllOutfits() {
+    return null;
+  }
 
   private static final List<ObjectId> ids = new ArrayList<>();
 

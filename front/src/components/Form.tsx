@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import React, { ReactNode } from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 
-interface FormProps {}
+interface FormProps {
+  submitted: boolean;
+  setSubmitted: Dispatch<boolean>;
+}
 
 interface error {
   response: string;
@@ -62,7 +65,16 @@ export default function Form(props: FormProps) {
         }}
       >
         <h2>Input your response</h2>
-        <button onClick={() => setModalIsOpen(true)}>Open Form</button>
+        <button
+          onClick={() => {
+            if (props.submitted) {
+            } else {
+              setModalIsOpen(true);
+            }
+          }}
+        >
+          Open Form
+        </button>
 
         <Modal
           isOpen={modalIsOpen}
@@ -81,21 +93,26 @@ export default function Form(props: FormProps) {
           }}
         >
           <Formik
-            initialValues={{ response: "", feedback: "" }}
-            validate={(values) => {
-              let errors: error = { response: "", feedback: "" };
-
-              if (!values.response) {
-                errors.response = "*Required";
-              }
-              return errors;
+            initialValues={{
+              recommend: "",
+              removal: "",
+              response: "",
+              location: "",
+              item: [],
             }}
+            // validate={(values) => {
+            //   let errors: error = { response: "", feedback: "" };
+
+            //   if (!values.response) {
+            //     errors.response = "*Required";
+            //   }
+            //   return errors;
+            // }}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-                setModalIsOpen(false); // Close the modal after submission
-              }, 400);
+              console.log("in the onsubmit");
+              alert(JSON.stringify(values, null, 5));
+              setSubmitting(false);
+              setModalIsOpen(false); // Close the modal after submission
             }}
           >
             {({
@@ -120,27 +137,25 @@ export default function Form(props: FormProps) {
                     others?
                   </strong>
                 </p>
-                <form>
-                  <label
-                    style={{
-                      fontFamily: "Times New Roman, Times, serif",
-                      marginTop: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    Select Rating:
-                    <select value={rating || ""} onChange={handleRatingChange}>
-                      <option value="" disabled>
-                        Select rating
+                <label
+                  style={{
+                    fontFamily: "Times New Roman, Times, serif",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Select Rating:
+                  <select value={rating || ""} onChange={handleRatingChange}>
+                    <option value="" disabled>
+                      Select rating
+                    </option>
+                    {ratingOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {`${option.value} - ${option.label}`}
                       </option>
-                      {ratingOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {`${option.value} - ${option.label}`}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </form>
+                    ))}
+                  </select>
+                </label>
                 {rating && (
                   <p
                     style={{
@@ -173,15 +188,26 @@ export default function Form(props: FormProps) {
                     }}
                   >
                     <label
+                      htmlFor="location"
                       style={{ fontFamily: "Times New Roman, Times, serif" }}
                     >
-                      <input type="radio" name="location" value="inside" />
+                      <input
+                        onChange={handleChange}
+                        type="radio"
+                        name="location"
+                        value="inside"
+                      />
                       Inside
                     </label>
                     <label
                       style={{ fontFamily: "Times New Roman, Times, serif" }}
                     >
-                      <input type="radio" name="location" value="outside" />
+                      <input
+                        onChange={handleChange}
+                        type="radio"
+                        name="location"
+                        value="outside"
+                      />
                       Outside
                     </label>
                   </div>
@@ -206,23 +232,48 @@ export default function Form(props: FormProps) {
                     }}
                   >
                     <label>
-                      <input type="checkbox" name="item" value="pants" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="pants"
+                      />
                       Pants/Sweatpants/Jeans/Trousers
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="sweater" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="sweater"
+                      />
                       Sweater/Cardigan
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="shorts" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="shorts"
+                      />
                       Shorts/Skirt
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="tank top" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="tank top"
+                      />
                       Tank-Top/T-Shirt
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="coat" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="coat"
+                      />
                       Coat/Winter-Jacket/Puffer
                     </label>
                     <label>
@@ -234,23 +285,48 @@ export default function Form(props: FormProps) {
                       Hat/Beanie/Cap/Ear-Muffs
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="hands" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="hands"
+                      />
                       Gloves/Mittens/Fuzzy-Socks/Scarf
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="winter shoes" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="winter shoes"
+                      />
                       Winter-Boots/Fur-Lined-Shoes
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="summer shoes" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="summer shoes"
+                      />
                       Sandals/Flip-Flops
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="sneakers" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="sneakers"
+                      />
                       Sneakers/Trainers/Crocs
                     </label>
                     <label>
-                      <input type="checkbox" name="item" value="Other" />
+                      <input
+                        onChange={handleChange}
+                        type="checkbox"
+                        name="item"
+                        value="Other"
+                      />
                       Other
                     </label>
                   </div>
@@ -264,7 +340,7 @@ export default function Form(props: FormProps) {
                   }}
                 ></div>
                 <label
-                  htmlFor="response"
+                  htmlFor="recommend"
                   style={{
                     fontFamily: "Times New Roman, Times, serif",
                     marginTop: "80px",
@@ -281,10 +357,10 @@ export default function Form(props: FormProps) {
                 </label>
                 <input
                   type="text"
-                  name="response"
+                  name="recommend"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.response}
+                  value={values.recommend}
                   style={{
                     marginTop: "10px",
                     marginBottom: "20px",
@@ -310,7 +386,7 @@ export default function Form(props: FormProps) {
                   }}
                 ></div>
                 <label
-                  htmlFor="feedback"
+                  htmlFor="removal"
                   style={{
                     fontFamily: "Times New Roman, Times, serif",
                     marginTop: "80px",
@@ -323,10 +399,10 @@ export default function Form(props: FormProps) {
                 </label>
                 <input
                   type="text"
-                  name="feedback"
+                  name="removal"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.feedback}
+                  value={values.removal}
                   style={{
                     marginTop: "10px",
                     marginBottom: "20px",
@@ -337,8 +413,17 @@ export default function Form(props: FormProps) {
                 <div style={{ textAlign: "center" }}>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    //disabled={isSubmitting}
                     style={{ margin: "auto" }}
+                    onClick={() => {
+                      console.log(values);
+                      props.setSubmitted(true);
+                      let clothing: string = values.item.join("!");
+                      fetch(
+                        `http://localhost:3232/databasewrite?rating=${rating}&clothing=${clothing}`
+                      );
+                      setModalIsOpen(false);
+                    }}
                   >
                     Submit
                   </button>
@@ -347,7 +432,6 @@ export default function Form(props: FormProps) {
             )}
           </Formik>
         </Modal>
-
         <Link to={"/recommendation"}>
           <button type="button">View Recommendation</button>
         </Link>

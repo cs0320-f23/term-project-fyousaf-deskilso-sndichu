@@ -37,7 +37,7 @@ function App() {
       };
     }
   };
-
+  const [submitted, setSubmitted] = useState<boolean>(false);
   const ProtectedRoute = ({ user, redirectPath = "/", children }) => {
     if (!user) {
       return <Navigate to={redirectPath} replace />;
@@ -97,7 +97,7 @@ function App() {
               path="/form"
               element={
                 <ProtectedRoute user={user}>
-                  <Form />
+                  <Form setSubmitted={setSubmitted} submitted={submitted} />
                 </ProtectedRoute>
               }
             />

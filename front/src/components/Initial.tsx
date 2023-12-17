@@ -26,7 +26,7 @@ function Initial(props: initialProps) {
     if (true) {
       // if (response.profileObj?.email.endsWith("@brown.edu"))
       // if ()
-      console.log("Login successful:", response);
+      console.log("Login successful");
 
       props.setUser(true);
       navigate("/home");

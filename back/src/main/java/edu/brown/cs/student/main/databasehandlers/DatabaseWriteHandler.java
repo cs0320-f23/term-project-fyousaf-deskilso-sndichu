@@ -16,6 +16,7 @@ import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +77,7 @@ public class DatabaseWriteHandler implements Route {
       }
 
 
-      this.state.write(rating, clothing, request.queryParams("timestamp"));
+      this.state.write(rating, clothing, LocalDateTime.now().toString());
       /*Bson query = eq("name", "Comet Hyakutake");
       try {
         DeleteResult deleted = coll.deleteOne(query);
