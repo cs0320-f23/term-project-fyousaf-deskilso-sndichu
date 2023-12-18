@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.crypto.Data;
 import okio.Buffer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -82,7 +83,8 @@ public class DatabaseTest {
   @Test
   public void testUnit() throws IOException {
     // Set up the request, make the request
-    HttpURLConnection loadConnection = tryRequest("/databasewrite?rating=5");
+    HttpURLConnection loadConnection = tryRequest(
+        "/databasewrite?rating=5&status=inside&clothing=Shirt!Pants!Hoodie");
     // Get the expected response: a success
     assertEquals(200, loadConnection.getResponseCode());
     Map<String, Object> body =
@@ -90,6 +92,7 @@ public class DatabaseTest {
     assertEquals("success", body.get("result"));
     loadConnection.disconnect();
     assertEquals(Integer.valueOf(5).toString(), new DatabaseDataSource().read(0));
+    new DatabaseDataSource().readAllOutfits();
     new DatabaseDataSource().deleteAll();
   }
 

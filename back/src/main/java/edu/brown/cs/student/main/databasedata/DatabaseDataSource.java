@@ -2,6 +2,7 @@ package edu.brown.cs.student.main.databasedata;
 
 import static com.mongodb.client.model.Filters.eq;
 
+import com.beust.ah.A;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -25,9 +26,39 @@ import org.bson.types.ObjectId;
  */
 public class DatabaseDataSource implements Database {
 
-  // TODO: Implement this method once the record is finalized
-  public String readAllOutfits() {
-    return null;
+  /**
+   * Returns outfit logs
+   *
+   * @return The outfits logged
+   */
+  public List<OutfitLog> readAllOutfits() {
+    String uri = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
+    try (MongoClient mongoClient = MongoClients.create(uri)) {
+      MongoDatabase database = mongoClient.getDatabase("weather_recommendation");
+      MongoCollection<Document> collection = database.getCollection("weather_recommendation");
+      try {
+        List<OutfitLog> outfits = new ArrayList<>();
+        for (ObjectId id : this.ids) {
+          Document document = collection.find(eq("_id", ids.get(0))).first();
+          assert document != null;
+          String tempStatus = document.getString("Status");
+          Status status = null;
+          if (tempStatus.equals("inside")) {
+            status = Status.INSIDE;
+          } else if (tempStatus.equals("outside")) {
+            status = Status.OUTSIDE;
+          }
+          outfits.add(
+              new OutfitLog(document.getList("Clothing", String.class), status
+              ));
+        }
+        System.out.println(outfits);
+        return outfits;
+      } catch (MongoException me) {
+        System.err.println("Unable to insert due to an error: " + me);
+        return null;
+      }
+    }
   }
 
   private static final List<ObjectId> ids = new ArrayList<>();
@@ -40,7 +71,7 @@ public class DatabaseDataSource implements Database {
    * @param timestamp
    */
   @Override
-  public void write(Integer rating, List<String> clothing, String timestamp) {
+  public void write(Integer rating, List<String> clothing, String timestamp, String status) {
     String uri = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
     try (MongoClient mongoClient = MongoClients.create(uri)) {
       MongoDatabase database = mongoClient.getDatabase("weather_recommendation");
@@ -52,7 +83,8 @@ public class DatabaseDataSource implements Database {
             .append("_id", myObjectId)
             .append("Rating", rating)
             .append("Clothing", clothing)
-            .append("Timestamp", timestamp));
+            .append("Timestamp", timestamp)
+            .append("Status", status));
         // Prints the ID of the inserted document
         System.out.println("Success! Inserted document id: " + result.getInsertedId());
         this.ids.add(myObjectId);

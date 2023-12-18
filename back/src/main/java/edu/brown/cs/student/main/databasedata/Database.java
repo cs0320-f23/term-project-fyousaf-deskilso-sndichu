@@ -10,14 +10,14 @@ public interface Database {
   /**
    * Method to write to a database.
    */
-  public void write(Integer rating, List<String> clothing, String timestamp);
+  public void write(Integer rating, List<String> clothing, String timestamp, String status);
 
   /**
    * Method to read to a database
    */
   public String read(int index);
 
-  public String readAllOutfits();
+  public List<OutfitLog> readAllOutfits();
 
   // TODO (eventually): added mocked database class and cached database class implementing this
   // interface potentially

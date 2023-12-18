@@ -13,6 +13,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.databasedata.Database;
+import edu.brown.cs.student.main.databasedata.Status;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -27,22 +28,25 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/** */
+/**
+ *
+ */
 public class DatabaseWriteHandler implements Route {
+
   private Database state;
+
   /**
-   *
-   *
    * @param toUse
    */
 
   public DatabaseWriteHandler(Database toUse) {
     this.state = toUse;
   }
+
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
-   * @param request The request object providing information about the HTTP request
+   * @param request  The request object providing information about the HTTP request
    * @param response The response object providing functionality for modifying the response
    * @return The content to be set in the response
    */
@@ -76,8 +80,19 @@ public class DatabaseWriteHandler implements Route {
         clothing = List.of(clothingTemp.split("!"));
       }
 
+      String statusTemp = request.queryParams("status");
+      String status = null;
+      if (statusTemp == null) {
+        status = status;
+      } else {
+        if (statusTemp.equals("inside")) {
+          status = "inside";
+        } else if (statusTemp.equals("outside")) {
+          status = "outside";
+        }
+      }
 
-      this.state.write(rating, clothing, LocalDateTime.now().toString());
+      this.state.write(rating, clothing, LocalDateTime.now().toString(), status);
       /*Bson query = eq("name", "Comet Hyakutake");
       try {
         DeleteResult deleted = coll.deleteOne(query);
