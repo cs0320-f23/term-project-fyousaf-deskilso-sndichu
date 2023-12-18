@@ -20,8 +20,6 @@ function App() {
     // Handle the Google authentication response
     //console.log(response);
     //
-    // TODO: Add a boolean UseState variable for isLoggedIn, then use
-    // stackoverflow post info about making a private route for the routes
     // Check if the user's email belongs to the ".brown.edu" domain
     if (response.profileObj?.email.endsWith("@brown.edu")) {
       onSuccess: (response) => {

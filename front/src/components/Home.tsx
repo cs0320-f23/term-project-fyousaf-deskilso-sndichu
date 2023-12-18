@@ -33,8 +33,6 @@ function Home() {
   };
 
   return (
-    // TODO (eventually): add CSS to make the app look nice
-
     <div
       style={{
         textAlign: "center",

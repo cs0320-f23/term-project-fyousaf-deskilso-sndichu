@@ -5,8 +5,13 @@ import { Link } from "react-router-dom";
 interface RecommendationProps {}
 
 export default function Recommendation(props: RecommendationProps) {
+  const [recommendation, setRecommendation] = useState<string>(
+    "Click button for recommendation"
+  );
+  function handleSubmit(mouseKeyEvent) {
+    // fetch call and then setter for the recommendation once algorithm is complete
+  }
   return (
-    // TODO (eventually): add in real recommendation data from our algorithm using an API call
     <div>
       <Link to="/home">
         <button style={{ marginLeft: "10px" }}>Home</button>
@@ -43,10 +48,14 @@ export default function Recommendation(props: RecommendationProps) {
         <Link to={"/form"}>
           <button type="button">Form</button>
         </Link>
-        <button aria-label="Use this button to get a recommendation for the current weather, personalized and based on other user's data">
+        <button
+          onClick={handleSubmit}
+          aria-label="Use this button to get a recommendation for the current weather, personalized and based on other user's data"
+        >
           Get Recommendation
         </button>
         <p>Your recommendation for today is the following: </p>
+        <p>{recommendation}</p>
       </div>
     </div>
   );

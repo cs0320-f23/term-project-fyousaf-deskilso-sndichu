@@ -125,6 +125,7 @@ export default function Form(props: FormProps) {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
+                {/* Rating question */}
                 <p
                   style={{
                     fontFamily: "Times New Roman, Times, serif",
@@ -168,6 +169,7 @@ export default function Form(props: FormProps) {
                   </p>
                 )}
                 <div>
+                  {/* Location question */}
                   <label
                     style={{
                       display: "block",
@@ -214,6 +216,7 @@ export default function Form(props: FormProps) {
                 </div>
 
                 <div>
+                  {/* Clothing question */}
                   <label
                     style={{
                       fontFamily: "Times New Roman, Times, serif",
@@ -331,7 +334,7 @@ export default function Form(props: FormProps) {
                     </label>
                   </div>
                 </div>
-
+                {/* Recommend question */}
                 <div
                   style={{
                     fontFamily: "Times New Roman, Times, serif",
@@ -385,6 +388,7 @@ export default function Form(props: FormProps) {
                     marginBottom: "20px",
                   }}
                 ></div>
+                {/* Removal question */}
                 <label
                   htmlFor="removal"
                   style={{

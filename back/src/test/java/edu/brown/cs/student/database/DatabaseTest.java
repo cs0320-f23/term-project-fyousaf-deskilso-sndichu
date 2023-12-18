@@ -5,18 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
+import edu.brown.cs.student.main.databasedata.OutfitLog;
+import edu.brown.cs.student.main.databasedata.Status;
 import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
-import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.crypto.Data;
 import okio.Buffer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -25,6 +25,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
+/**
+ * Tests for the database class and its associated write handler.
+ */
 public class DatabaseTest {
 
   private final Type mapStringObject =
@@ -89,27 +92,28 @@ public class DatabaseTest {
     assertEquals(200, loadConnection.getResponseCode());
     Map<String, Object> body =
         mapAdapter.fromJson(new Buffer().readFrom(loadConnection.getInputStream()));
+    assert body != null;
     assertEquals("success", body.get("result"));
     loadConnection.disconnect();
     assertEquals(Integer.valueOf(5).toString(), new DatabaseDataSource().read(0));
-    new DatabaseDataSource().readAllOutfits();
+    assertEquals(new OutfitLog(List.of("Shirt", "Pants", "Hoodie"), Status.INSIDE),
+        new DatabaseDataSource().readAllOutfits().get(0));
     new DatabaseDataSource().deleteAll();
   }
 
   // citation: the below helper method is directly copied from the lecture code.
 
   /**
-   * Helper to start a connection to a specific API endpoint/params
+   * Helper to start a connection to a specific API endpoint/params.
    *
-   * @param apiCall the call string, including endpoint (Note: this would be better if it had more
-   *                structure!)
+   * @param apiCall the call string, including endpoint
    * @return the connection for the given URL, just after connecting
    * @throws IOException if the connection fails for some reason
    */
   private HttpURLConnection tryRequest(String apiCall) throws IOException {
     // Configure the connection (but don't actually send a request yet)
-    URL requestURL = new URL("http://localhost:" + Spark.port() + "/" + apiCall);
-    HttpURLConnection clientConnection = (HttpURLConnection) requestURL.openConnection();
+    URL requestUrl = new URL("http://localhost:" + Spark.port() + "/" + apiCall);
+    HttpURLConnection clientConnection = (HttpURLConnection) requestUrl.openConnection();
     // The request body contains a Json object
     clientConnection.setRequestProperty("Content-Type", "application/json");
     // We're expecting a Json object in the response body

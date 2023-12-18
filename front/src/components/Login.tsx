@@ -10,7 +10,7 @@ export default function LoginPage(props: GoogleLoginProps) {
     if (response.profileObj?.email.endsWith("@brown.edu")) {
       onSuccess: (response) => {
         setUser(response);
-        console.log("Login successful:", response);
+        console.log("Login successful:");
       };
       // You can set the user state or perform any other actions here
     } else {

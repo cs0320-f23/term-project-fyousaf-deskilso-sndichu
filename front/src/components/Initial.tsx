@@ -21,11 +21,8 @@ function Initial(props: initialProps) {
     // Handle the Google authentication response
     //console.log(response);
     //
-    // TODO: Add a boolean UseState variable for isLoggedIn, then use
-    // stackoverflow post info about making a private route for the routes
     if (true) {
       // if (response.profileObj?.email.endsWith("@brown.edu"))
-      // if ()
       console.log("Login successful");
 
       props.setUser(true);

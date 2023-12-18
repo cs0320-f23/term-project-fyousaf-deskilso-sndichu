@@ -1,42 +1,29 @@
 package edu.brown.cs.student.main.databasehandlers;
 
-import static com.mongodb.client.model.Filters.eq;
-
-import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.result.InsertManyResult;
-import com.mongodb.client.MongoDatabase;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.databasedata.Database;
-import edu.brown.cs.student.main.databasedata.Status;
-import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 /**
- *
+ * Handler to write to the backend database.
  */
 public class DatabaseWriteHandler implements Route {
 
-  private Database state;
+  private final Database state;
 
   /**
-   * @param toUse
+   * Constructor for handler with dependency injected database.
+   *
+   * @param toUse the database to use.
    */
 
   public DatabaseWriteHandler(Database toUse) {

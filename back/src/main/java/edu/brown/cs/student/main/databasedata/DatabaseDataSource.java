@@ -2,32 +2,25 @@ package edu.brown.cs.student.main.databasedata;
 
 import static com.mongodb.client.model.Filters.eq;
 
-import com.beust.ah.A;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.InsertOneResult;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import org.bson.BsonValue;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
- * Database datasource class.
+ * Database datasource class containing methods for interacting with real database.
  */
 public class DatabaseDataSource implements Database {
 
   /**
-   * Returns outfit logs
+   * Returns outfit log objects.
    *
    * @return The outfits logged
    */
@@ -38,8 +31,8 @@ public class DatabaseDataSource implements Database {
       MongoCollection<Document> collection = database.getCollection("weather_recommendation");
       try {
         List<OutfitLog> outfits = new ArrayList<>();
-        for (ObjectId id : this.ids) {
-          Document document = collection.find(eq("_id", ids.get(0))).first();
+        for (ObjectId id : DatabaseDataSource.ids) {
+          Document document = collection.find(eq("_id", id)).first();
           assert document != null;
           String tempStatus = document.getString("Status");
           Status status = null;
@@ -66,9 +59,9 @@ public class DatabaseDataSource implements Database {
   /**
    * Method to write to a database.
    *
-   * @param rating
-   * @param clothing
-   * @param timestamp
+   * @param rating    a rating of conditions relative feeling.
+   * @param clothing  a list of pieces of clothing.
+   * @param timestamp a timestamp.
    */
   @Override
   public void write(Integer rating, List<String> clothing, String timestamp, String status) {
@@ -87,7 +80,7 @@ public class DatabaseDataSource implements Database {
             .append("Status", status));
         // Prints the ID of the inserted document
         System.out.println("Success! Inserted document id: " + result.getInsertedId());
-        this.ids.add(myObjectId);
+        DatabaseDataSource.ids.add(myObjectId);
 
         // Prints a message if any exceptions occur during the operation
       } catch (MongoException me) {
@@ -97,7 +90,7 @@ public class DatabaseDataSource implements Database {
   }
 
   /**
-   *
+   * Method to read the rating at a given index.
    */
   @Override
   public String read(int index) {
@@ -124,6 +117,9 @@ public class DatabaseDataSource implements Database {
     }
   }
 
+  /**
+   * Clean up method to remove all entries from the database.
+   */
   public void deleteAll() {
     String uri = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
     try (MongoClient mongoClient = MongoClients.create(uri)) {

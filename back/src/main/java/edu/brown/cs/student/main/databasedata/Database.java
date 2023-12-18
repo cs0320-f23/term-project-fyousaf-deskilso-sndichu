@@ -10,15 +10,17 @@ public interface Database {
   /**
    * Method to write to a database.
    */
-  public void write(Integer rating, List<String> clothing, String timestamp, String status);
+  void write(Integer rating, List<String> clothing, String timestamp, String status);
 
   /**
-   * Method to read to a database
+   * Method to read from the database.
    */
-  public String read(int index);
+  String read(int index);
 
-  public List<OutfitLog> readAllOutfits();
-
-  // TODO (eventually): added mocked database class and cached database class implementing this
-  // interface potentially
+  /**
+   * Method to go over all outfit logs in the database and then return outfit objects.
+   *
+   * @return a list of outfit logs
+   */
+  List<OutfitLog> readAllOutfits();
 }
