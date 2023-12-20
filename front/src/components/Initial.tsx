@@ -3,7 +3,7 @@ import Form from "./Form";
 import Recommendation from "./Recommendation";
 import Rating from "./Rating";
 import ReactDOM from "react-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleCredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import googleclientID from "../private/googleclientID";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ interface initialProps {
 function Initial(props: initialProps) {
   const navigate = useNavigate();
   //const [user, setUser] = useState<any>(null);
-  const responseGoogle = (response) => {
+  const responseGoogle = (response: GoogleCredentialResponse) => {
     console.log("here");
     // Handle the Google authentication response
     //console.log(response);
@@ -31,26 +31,22 @@ function Initial(props: initialProps) {
     }
     // You can set the user state or perform any other actions here
     else {
-      onSuccess: (response) => {
+      onSuccess: (response: GoogleCredentialResponse) => {
         props.setUser(false);
         console.log("Login successful:", response);
       };
-      onError: (response) => {
-        console.log("Login failed: Login with your Brown email", response);
-
-        // You may want to redirect or show an error message to the user
-      };
     }
   };
-  const responseGoogle2 = (response) => {
-    console.log("failed");
-    console.log(response);
-  };
+  // const responseGoogle2 = (response) => {
+  //   console.log("failed");
+  //   console.log(response);
+  // };
 
   return (
     // TODO (eventually): add CSS to make the app look nice
     <div>
       <div
+        data-testid="Google OAuth"
         style={{
           textAlign: "center",
           marginTop: "100px",

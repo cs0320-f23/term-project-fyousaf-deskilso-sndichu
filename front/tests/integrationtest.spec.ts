@@ -13,7 +13,13 @@ test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:5173/");
 });
 
-test("on page load, i see an input bar", async ({ page }) => {
-  await expect(page.getByText("This is our app!")).toBeVisible();
+test("on page load, I see google OAuth", async ({ page }) => {
+  await expect(page.getByTestId("Google OAuth")).toBeVisible();
+  await expect(page.getByText("This is not our app!")).toHaveCount(0);
+});
+
+test("React private routing works", async ({ page }) => {
+  await page.goto("http://localhost:5173/home");
+  await expect(page.getByTestId("Google OAuth")).toBeVisible();
   await expect(page.getByText("This is not our app!")).toHaveCount(0);
 });

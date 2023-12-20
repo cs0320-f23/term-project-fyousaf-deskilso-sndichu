@@ -13,9 +13,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * Handler to write to the backend database.
- */
+/** Handler to write to the backend database. */
 public class DatabaseWriteHandler implements Route {
 
   private final Database state;
@@ -32,7 +30,7 @@ public class DatabaseWriteHandler implements Route {
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
-   * @param request  The request object providing information about the HTTP request
+   * @param request The request object providing information about the HTTP request
    * @param response The response object providing functionality for modifying the response
    * @return The content to be set in the response
    */

@@ -11,9 +11,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * Handler for the endpoint of our server to generate recommendations.
- */
+/** Handler for the endpoint of our server to generate recommendations. */
 public class RecommendationHandler implements Route {
 
   public static RecommendationSource getMySource() {

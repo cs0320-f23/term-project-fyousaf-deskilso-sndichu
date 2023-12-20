@@ -6,7 +6,6 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
@@ -16,13 +15,10 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-/**
- * Database datasource class containing methods for interacting with real database.
- */
+/** Database datasource class containing methods for interacting with real database. */
 public class DatabaseDataSource implements Database {
 
-  public DatabaseDataSource() {
-  }
+  public DatabaseDataSource() {}
 
   /**
    * Returns outfit log objects.
@@ -45,7 +41,6 @@ public class DatabaseDataSource implements Database {
             status = Status.OUTSIDE;
           } else if (tempStatus.equals("inside")) {
             status = Status.INSIDE;
-
           }
           outfits.add(new OutfitLog(document.getList("Clothing", String.class), status));
         }
@@ -63,8 +58,8 @@ public class DatabaseDataSource implements Database {
   /**
    * Method to write to a database.
    *
-   * @param rating    a rating of conditions relative feeling.
-   * @param clothing  a list of pieces of clothing.
+   * @param rating a rating of conditions relative feeling.
+   * @param clothing a list of pieces of clothing.
    * @param timestamp a timestamp.
    */
   @Override
@@ -96,9 +91,7 @@ public class DatabaseDataSource implements Database {
     }
   }
 
-  /**
-   * Method to read the rating at a given index.
-   */
+  /** Method to read the rating at a given index. */
   @Override
   public String read(int index) {
     String uri = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
@@ -123,9 +116,7 @@ public class DatabaseDataSource implements Database {
     }
   }
 
-  /**
-   * Clean up method to remove all entries from the database.
-   */
+  /** Clean up method to remove all entries from the database. */
   public void deleteAll() {
     String uri = PrivateDatabase.getPrivateDatabase().getDatabaseKey();
     try (MongoClient mongoClient = MongoClients.create(uri)) {
