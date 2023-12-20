@@ -65,6 +65,18 @@ export default function Form(props: FormProps) {
         }}
       >
         <h2>Input your response</h2>
+        <p
+          style={{
+            color: "white",
+            fontFamily: "Times New Roman, Times, serif",
+            textAlign: "center",
+          }}
+        >
+          <strong>
+            Note: You may submit the form only once. Please logout and login
+            again to make another submission.
+          </strong>
+        </p>
         <button
           onClick={() => {
             if (props.submitted) {
@@ -125,6 +137,18 @@ export default function Form(props: FormProps) {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
+                <p
+                  style={{
+                    color: "blue",
+                    fontFamily: "Times New Roman, Times, serif",
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>
+                    You may submit the form only once. Please logout and login
+                    again to make another submission.
+                  </strong>
+                </p>
                 {/* Rating question */}
                 <p
                   style={{

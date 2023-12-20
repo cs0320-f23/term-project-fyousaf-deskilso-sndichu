@@ -28,10 +28,10 @@ function Home() {
 
       <h1>Home Page</h1>
       <h2>
-        {" "}
         Welcome to Weather! Please click on a button to navigate to your desired
         tab
       </h2>
+      <h3 style={{ textAlign: "center" }}>You are currently Logged In</h3>
       <div>
         <Link to="/home">
           <button className="button" style={{ marginLeft: "10px" }}>
