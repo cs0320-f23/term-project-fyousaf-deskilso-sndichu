@@ -1,4 +1,4 @@
-package edu.brown.cs.student;
+package edu.brown.cs.student.algorithm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
