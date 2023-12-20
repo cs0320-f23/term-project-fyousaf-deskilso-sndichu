@@ -18,6 +18,7 @@ import org.bson.types.ObjectId;
  * Database datasource class containing methods for interacting with real database.
  */
 public class DatabaseDataSource implements Database {
+    public DatabaseDataSource(){}
 
   /**
    * Returns outfit log objects.

@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import spark.Request;
 import spark.Response;
@@ -20,8 +21,15 @@ public class RecommendationHandler implements Route {
    * @param response The response object providing functionality for modifying the response
    * @return The content to be set in the response
    */
+  private RecommendationSource mySource;
+
+  public RecommendationHandler(RecommendationSource mySource) {
+    this.mySource = mySource;
+  }
+
   @Override
   public Object handle(Request request, Response response) {
+    //String CurrentWeather = request.queryParams("temp");
     Moshi moshi = new Moshi.Builder().build();
     Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
     JsonAdapter<Map<String, Object>> mapAdapter = moshi.adapter(mapStringObject);
@@ -29,12 +37,15 @@ public class RecommendationHandler implements Route {
 
     try {
       // TODO: code for our algorithm here
-      // refer to our spec doc for specifics
-
+      List<List<String>> Recommendation = this.mySource.generateRecommendations();
       responseMap.put("result", "success");
+      responseMap.put("recommendation", Recommendation);
       return mapAdapter.toJson(responseMap);
-    } catch (Exception e) {
-      responseMap.put("exception", e);
+    } catch (CustomException e) {
+      e.printStackTrace();
+      responseMap.put("type", "error");
+      responseMap.put("error_type", "datasource");
+      responseMap.put("details", e.getMessage());
       return mapAdapter.toJson(responseMap);
     }
   }
