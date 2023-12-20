@@ -25,7 +25,6 @@ public class DatabaseWriteHandler implements Route {
    *
    * @param toUse the database to use.
    */
-
   public DatabaseWriteHandler(Database toUse) {
     this.state = toUse;
   }
@@ -62,7 +61,7 @@ public class DatabaseWriteHandler implements Route {
       }
 
       String clothingTemp = request.queryParams("clothing");
-      List<String> clothing = null;
+      List<String> clothing = List.of();
       if (clothingTemp != null) {
         clothing = List.of(clothingTemp.split("!"));
       }
@@ -70,11 +69,11 @@ public class DatabaseWriteHandler implements Route {
       String statusTemp = request.queryParams("status");
       String status = null;
       if (statusTemp == null) {
-        status = status;
+        status = "outside";
       } else {
         if (statusTemp.equals("inside")) {
           status = "inside";
-        } else if (statusTemp.equals("outside")) {
+        } else {
           status = "outside";
         }
       }

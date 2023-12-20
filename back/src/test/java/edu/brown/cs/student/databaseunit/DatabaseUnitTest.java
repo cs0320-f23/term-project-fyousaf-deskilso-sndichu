@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
 import edu.brown.cs.student.main.databasedata.MockDatabase;
 import edu.brown.cs.student.main.databasedata.OutfitLog;
 import edu.brown.cs.student.main.databasedata.Status;
 import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
-import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -26,18 +26,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
-/**
- * Unit tests for database class and handler.
- */
+/** Unit tests for database class and handler. */
 public class DatabaseUnitTest {
 
   private final Type mapStringObject =
       Types.newParameterizedType(Map.class, String.class, Object.class);
   private JsonAdapter<Map<String, Object>> mapAdapter;
 
-  /**
-   * Prepare for tests by getting server port.
-   */
+  /** Prepare for tests by getting server port. */
   @BeforeAll
   public static void setupOnce() {
     // Pick an arbitrary free port
@@ -46,9 +42,7 @@ public class DatabaseUnitTest {
     Logger.getLogger("").setLevel(Level.WARNING); // empty name = root
   }
 
-  /**
-   * Establishes endpoint before each test.
-   */
+  /** Establishes endpoint before each test. */
   @BeforeEach
   public void setup() {
     Spark.get("/databasewrite", new DatabaseWriteHandler(new MockDatabase()));
@@ -58,9 +52,7 @@ public class DatabaseUnitTest {
     mapAdapter = moshi.adapter(mapStringObject);
   }
 
-  /**
-   * Allows Spark to reset after each test.
-   */
+  /** Allows Spark to reset after each test. */
   @AfterEach
   public void tearDown() {
     // Gracefully stop Spark listening on the endpoint
@@ -86,6 +78,7 @@ public class DatabaseUnitTest {
    */
   @Test
   public void testDatabaseMock() throws IOException {
+    new DatabaseDataSource().deleteAll();
     // Set up the request, make the request
     HttpURLConnection loadConnection = tryRequest("/databasewrite");
     // Get the expected response: a success
@@ -93,9 +86,11 @@ public class DatabaseUnitTest {
     Map<String, Object> body =
         mapAdapter.fromJson(new Buffer().readFrom(loadConnection.getInputStream()));
     assertEquals("success", body.get("result"));
-    assertEquals(new OutfitLog(List.of("pants, shorts"), Status.INSIDE),
+    assertEquals(
+        new OutfitLog(List.of("pants, shorts"), Status.INSIDE),
         new MockDatabase().readAllOutfits().get(1));
     loadConnection.disconnect();
+    new DatabaseDataSource().deleteAll();
   }
 
   // citation: the below helper method is directly copied from the lecture code.
@@ -104,7 +99,7 @@ public class DatabaseUnitTest {
    * Helper to start a connection to a specific API endpoint/params
    *
    * @param apiCall the call string, including endpoint (Note: this would be better if it had more
-   *                structure!)
+   *     structure!)
    * @return the connection for the given URL, just after connecting
    * @throws IOException if the connection fails for some reason
    */

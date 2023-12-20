@@ -2,19 +2,13 @@ package edu.brown.cs.student.main.databasedata;
 
 import java.util.List;
 
-/**
- * Interface representing a database datasource.
- */
+/** Interface representing a database datasource. */
 public interface Database {
 
-  /**
-   * Method to write to a database.
-   */
+  /** Method to write to a database. */
   void write(Integer rating, List<String> clothing, String timestamp, String status);
 
-  /**
-   * Method to read from the database.
-   */
+  /** Method to read from the database. */
   String read(int index);
 
   /**

@@ -11,9 +11,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * Handler for reading from database.
- */
+/** Handler for reading from database. */
 public class DatabaseReadHandler implements Route {
 
   private final Database state;
@@ -23,7 +21,6 @@ public class DatabaseReadHandler implements Route {
    *
    * @param toUse what to use.
    */
-
   public DatabaseReadHandler(Database toUse) {
     this.state = toUse;
   }
@@ -31,7 +28,7 @@ public class DatabaseReadHandler implements Route {
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
-   * @param request  The request object providing information about the HTTP request
+   * @param request The request object providing information about the HTTP request
    * @param response The response object providing functionality for modifying the response
    * @return The content to be set in the response
    */

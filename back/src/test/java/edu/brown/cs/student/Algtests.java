@@ -13,16 +13,13 @@ import edu.brown.cs.student.main.recommendationalg.RecommendationSource;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
-/**
- * JUnit test class for the RecommendationSource functionality.
- */
+
+/** JUnit test class for the RecommendationSource functionality. */
 public class Algtests {
 
   private RecommendationSource recommendationSource;
 
-  /**
-   * Set up the RecommendationSource with mock data for testing.
-   */
+  /** Set up the RecommendationSource with mock data for testing. */
   @Before
   public void setUp() {
     // Set up the RecommendationSource with mock data
@@ -71,9 +68,7 @@ public class Algtests {
         new RecommendationSource(constants.compatibilityRules, databaseDataSource, outfitLogs);
   }
 
-  /**
-   * Test the filtering of outfit logs based on the status (INSIDE/OUTSIDE).
-   */
+  /** Test the filtering of outfit logs based on the status (INSIDE/OUTSIDE). */
   @Test
   public void testFilterOutfitLogs() {
     List<OutfitLog> sunnyLogs = recommendationSource.filterOutfitLogs(Status.INSIDE);
@@ -83,9 +78,7 @@ public class Algtests {
     assertEquals(5, rainyLogs.size());
   }
 
-  /**
-   * Test the compatibility check for an outfit log.
-   */
+  /** Test the compatibility check for an outfit log. */
   @Test
   public void testIsCompatible() {
     OutfitLog compatibleLog =
@@ -97,9 +90,7 @@ public class Algtests {
     assertFalse(recommendationSource.isCompatible(incompatibleLog));
   }
 
-  /**
-   * Test the retrieval of popular accessories from the outfit logs.
-   */
+  /** Test the retrieval of popular accessories from the outfit logs. */
   @Test
   public void testGetPopularAccessories() {
     String popularAccessories = recommendationSource.getPopularAccessories();
@@ -116,9 +107,9 @@ public class Algtests {
     List<List<String>> recommendationsIn = recommendationSource.generateRecommendations();
     List<List<String>> recommendationsOut = recommendationSource.generateRecommendations();
 
-
     // Ensure that recommendations include compatible outfits
-    assertTrue(recommendationsIn.contains(Arrays.asList("hat", "sunglasses", "t-shirt", "jeans", "belt")));
+    assertTrue(
+        recommendationsIn.contains(Arrays.asList("hat", "sunglasses", "t-shirt", "jeans", "belt")));
     assertTrue(
         recommendationsOut.contains(Arrays.asList("raincoat", "pants", "boots", "umbrella")));
   }
@@ -129,19 +120,18 @@ public class Algtests {
    * @throws CustomException if there is an issue generating recommendations.
    */
   @Test
-  public void testEmptyLogs() throws CustomException{
+  public void testEmptyLogs() throws CustomException {
     List<OutfitLog> emptyOutfitLogs = new ArrayList<>();
     RecommendationSource emptyLogsSource =
         new RecommendationSource(new HashMap<>(), new DatabaseDataSource(), emptyOutfitLogs);
-    try{
-        emptyLogsSource.generateRecommendations();
-    }catch (CustomException e){
-    assertEquals("Logs is Empty", e.getMessage());
-  }}
+    try {
+      emptyLogsSource.generateRecommendations();
+    } catch (CustomException e) {
+      assertEquals("Logs is Empty", e.getMessage());
+    }
+  }
 
-  /**
-   * Test compatibility check when there are no compatibility rules defined.
-   */
+  /** Test compatibility check when there are no compatibility rules defined. */
   @Test
   public void testNoCompatibilityRules() {
     List<OutfitLog> myLogs = new ArrayList<>();

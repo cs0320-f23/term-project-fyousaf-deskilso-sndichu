@@ -2,8 +2,6 @@ package edu.brown.cs.student.databaserandom;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.beust.ah.A;
-import com.google.gson.JsonObject;
 import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
 import edu.brown.cs.student.main.databasedata.OutfitLog;
 import edu.brown.cs.student.main.databasedata.Status;
@@ -12,9 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.junit.jupiter.api.Test;
 
-/**
- * Random testing for the database.
- */
+/** Random testing for the database. */
 public class DatabaseRandomTest {
 
   /**
@@ -56,14 +52,12 @@ public class DatabaseRandomTest {
     }
   }
 
-
-  /**
-   * Fuzz testing for the database functionality.
-   */
+  /** Fuzz testing for the database functionality. */
   @Test
-  public void fuzzTestFilter() {
+  public void fuzzTestDatabase() {
     DatabaseDataSource database = new DatabaseDataSource();
     List<OutfitLog> outfits = new ArrayList<>();
+    database.deleteAll();
     for (int i = 0; i < 10; i++) {
       OutfitLog outfitLog = getRandomOutfitLog();
       outfits.add(outfitLog);
@@ -79,4 +73,3 @@ public class DatabaseRandomTest {
     database.deleteAll();
   }
 }
-

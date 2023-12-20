@@ -6,20 +6,25 @@ import edu.brown.cs.student.main.databasedata.Status;
 import java.util.*;
 
 /**
- * RecommendationSource class provides outfit recommendations based on compatibility rules,
- * outfit logs, and current weather conditions.
+ * RecommendationSource class provides outfit recommendations based on compatibility rules, outfit
+ * logs, and current weather conditions.
  */
 public class RecommendationSource {
-  private List<OutfitLog> outfitLogs;
+
+  public static void setOutfitLogs(List<OutfitLog> outfitLogs) {
+    RecommendationSource.outfitLogs = outfitLogs;
+  }
+
+  private static List<OutfitLog> outfitLogs;
   private Map<String, List<String>> compatibilityRules;
   private DatabaseDataSource databaseDataSource;
 
   /**
    * Constructor for RecommendationSource.
    *
-   * @param compatibilityRules   Map of compatibility rules between clothing items.
-   * @param databaseDataSource   Database data source for additional information.
-   * @param outfitLogs           List of outfit logs containing historical data.
+   * @param compatibilityRules Map of compatibility rules between clothing items.
+   * @param databaseDataSource Database data source for additional information.
+   * @param outfitLogs List of outfit logs containing historical data.
    */
   public RecommendationSource(
       Map<String, List<String>> compatibilityRules,
@@ -40,32 +45,35 @@ public class RecommendationSource {
   }
 
   /**
-   * Generates outfit recommendations based on compatibility rules, outfit logs, and current weather.
+   * Generates outfit recommendations based on compatibility rules, outfit logs, and current
+   * weather.
    *
    * @return List of recommended outfits.
    * @throws CustomException if there is an issue generating recommendations.
    */
-  public List<List<String>> generateRecommendations() throws CustomException{
+  public List<List<String>> generateRecommendations() throws CustomException {
     List<List<String>> recommendations = new ArrayList<>();
-    if(this.outfitLogs.isEmpty()){
+    if (this.outfitLogs.isEmpty()) {
       throw new CustomException("Logs is Empty");
-    }else{
-    Status currentWeather = this.outfitLogs.get(this.outfitLogs.size()-1).status();
-    List<OutfitLog>  filteredLogs = filterOutfitLogs(currentWeather);
-    if(filteredLogs.isEmpty()){
-      throw new CustomException("FilteredLogs is Empty");
-    }
-    for (OutfitLog log : filteredLogs) {
-      if (isCompatible(log)) {
-        if(recommendations.size()<=3){
-        recommendations.add(log.outfit());}
+    } else {
+      Status currentWeather = this.outfitLogs.get(this.outfitLogs.size() - 1).status();
+      List<OutfitLog> filteredLogs = filterOutfitLogs(currentWeather);
+      if (filteredLogs.isEmpty()) {
+        throw new CustomException("FilteredLogs is Empty");
       }
+      for (OutfitLog log : filteredLogs) {
+        if (isCompatible(log)) {
+          if (recommendations.size() <= 3) {
+            recommendations.add(log.outfit());
+          }
+        }
+      }
+      if (recommendations.isEmpty()) {
+        throw new CustomException("No recommendation matches your preference");
+      }
+      return recommendations;
     }
-    if(recommendations.isEmpty()){
-      throw new CustomException("No recommendation matches your preference");
-    }
-    return recommendations;
-  }}
+  }
 
   /**
    * Filters outfit logs based on the current weather status.

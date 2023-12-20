@@ -6,9 +6,11 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 import edu.brown.cs.student.main.notpublic.PrivateDatabase;
+import edu.brown.cs.student.main.recommendationalg.RecommendationSource;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -18,7 +20,9 @@ import org.bson.types.ObjectId;
  * Database datasource class containing methods for interacting with real database.
  */
 public class DatabaseDataSource implements Database {
-    public DatabaseDataSource(){}
+
+  public DatabaseDataSource() {
+  }
 
   /**
    * Returns outfit log objects.
@@ -32,19 +36,18 @@ public class DatabaseDataSource implements Database {
       MongoCollection<Document> collection = database.getCollection("weather_recommendation");
       try {
         List<OutfitLog> outfits = new ArrayList<>();
-        for (ObjectId id : DatabaseDataSource.ids) {
-          Document document = collection.find(eq("_id", id)).first();
+        for (Document document : collection.find()) {
           assert document != null;
           String tempStatus = document.getString("Status");
           Status status = null;
-          if (tempStatus.equals("inside")) {
-            status = Status.INSIDE;
+          if (tempStatus == null) {
           } else if (tempStatus.equals("outside")) {
             status = Status.OUTSIDE;
+          } else if (tempStatus.equals("inside")) {
+            status = Status.INSIDE;
+
           }
-          outfits.add(
-              new OutfitLog(document.getList("Clothing", String.class), status
-              ));
+          outfits.add(new OutfitLog(document.getList("Clothing", String.class), status));
         }
         System.out.println(outfits);
         return outfits;
@@ -73,15 +76,18 @@ public class DatabaseDataSource implements Database {
       ObjectId myObjectId = new ObjectId();
       try {
         // Inserts a sample document describing a movie into the collection
-        InsertOneResult result = collection.insertOne(new Document()
-            .append("_id", myObjectId)
-            .append("Rating", rating)
-            .append("Clothing", clothing)
-            .append("Timestamp", timestamp)
-            .append("Status", status));
+        InsertOneResult result =
+            collection.insertOne(
+                new Document()
+                    .append("_id", myObjectId)
+                    .append("Rating", rating)
+                    .append("Clothing", clothing)
+                    .append("Timestamp", timestamp)
+                    .append("Status", status));
         // Prints the ID of the inserted document
         System.out.println("Success! Inserted document id: " + result.getInsertedId());
         DatabaseDataSource.ids.add(myObjectId);
+        RecommendationSource.setOutfitLogs(this.readAllOutfits());
 
         // Prints a message if any exceptions occur during the operation
       } catch (MongoException me) {
@@ -102,12 +108,11 @@ public class DatabaseDataSource implements Database {
       try {
         Document document = collection.find(eq("_id", ids.get(0))).first();
         if (document == null) {
-          //Document does not exist
+          // Document does not exist
           System.out.println("not exists");
         } else {
-          //We found the document
+          // We found the document
           System.out.println("exists");
-
         }
         assert document != null;
         return document.getInteger("Rating").toString();

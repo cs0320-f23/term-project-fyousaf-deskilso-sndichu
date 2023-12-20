@@ -4,12 +4,37 @@ import { Link } from "react-router-dom";
 
 interface RecommendationProps {}
 
+interface RecommendationResponse {
+  recommendation: Array<Array<String>>;
+}
+
+function isRecommendationResponse(rjson: any): rjson is RecommendationResponse {
+  if (!("recommendation" in rjson)) return false;
+  return true;
+}
+
 export default function Recommendation(props: RecommendationProps) {
   const [recommendation, setRecommendation] = useState<string>(
     "Click button for recommendation"
   );
   function handleSubmit(mouseKeyEvent) {
-    // fetch call and then setter for the recommendation once algorithm is complete
+    fetch(`http://localhost:3232/recommendation`)
+      .then((r) => r.json())
+      .then((response) => {
+        if (isRecommendationResponse(response)) {
+          setRecommendation(
+            "One recommendation is " +
+              response.recommendation.join(". Another recommendation is ")
+          );
+        } else {
+          setRecommendation("There was an error finding the recommendation");
+        }
+      })
+      .catch((e) =>
+        setRecommendation(
+          "There was an exception in finding the recommendation"
+        )
+      );
   }
   return (
     <div>

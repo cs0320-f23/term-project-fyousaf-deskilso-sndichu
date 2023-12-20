@@ -25,18 +25,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
-/**
- * Tests for the database class and its associated write handler.
- */
+/** Tests for the database class and its associated write handler. */
 public class DatabaseIntegrationTest {
 
   private final Type mapStringObject =
       Types.newParameterizedType(Map.class, String.class, Object.class);
   private JsonAdapter<Map<String, Object>> mapAdapter;
 
-  /**
-   * Prepare for tests by getting server port.
-   */
+  /** Prepare for tests by getting server port. */
   @BeforeAll
   public static void setupOnce() {
     // Pick an arbitrary free port
@@ -45,9 +41,7 @@ public class DatabaseIntegrationTest {
     Logger.getLogger("").setLevel(Level.WARNING); // empty name = root
   }
 
-  /**
-   * Establishes endpoint before each test.
-   */
+  /** Establishes endpoint before each test. */
   @BeforeEach
   public void setup() {
     Spark.get("/databasewrite", new DatabaseWriteHandler(new DatabaseDataSource()));
@@ -57,9 +51,7 @@ public class DatabaseIntegrationTest {
     mapAdapter = moshi.adapter(mapStringObject);
   }
 
-  /**
-   * Allows Spark to reset after each test.
-   */
+  /** Allows Spark to reset after each test. */
   @AfterEach
   public void tearDown() {
     // Gracefully stop Spark listening on both endpoints
@@ -85,9 +77,10 @@ public class DatabaseIntegrationTest {
    */
   @Test
   public void testIntegration() throws IOException {
+    new DatabaseDataSource().deleteAll();
     // Set up the request, make the request
-    HttpURLConnection loadConnection = tryRequest(
-        "/databasewrite?rating=5&status=inside&clothing=Shirt!Pants!Hoodie");
+    HttpURLConnection loadConnection =
+        tryRequest("/databasewrite?rating=5&status=inside&clothing=Shirt!Pants!Hoodie");
     // Get the expected response: a success
     assertEquals(200, loadConnection.getResponseCode());
     Map<String, Object> body =
@@ -95,8 +88,8 @@ public class DatabaseIntegrationTest {
     assert body != null;
     assertEquals("success", body.get("result"));
     loadConnection.disconnect();
-    assertEquals(Integer.valueOf(5).toString(), new DatabaseDataSource().read(0));
-    assertEquals(new OutfitLog(List.of("Shirt", "Pants", "Hoodie"), Status.INSIDE),
+    assertEquals(
+        new OutfitLog(List.of("Shirt", "Pants", "Hoodie"), Status.INSIDE),
         new DatabaseDataSource().readAllOutfits().get(0));
     new DatabaseDataSource().deleteAll();
   }

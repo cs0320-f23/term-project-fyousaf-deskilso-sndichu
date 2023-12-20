@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * this class houses our compatibility rules as a hashmap to ensure the code is more extensible to suit changing preferences in fashion.
+ * this class houses our compatibility rules as a hashmap to ensure the code is more extensible to
+ * suit changing preferences in fashion.
  */
 public class Constants {
 
@@ -16,9 +17,7 @@ public class Constants {
     initializeCompatibilityRules();
   }
 
-  /**
-   * Method to initialize the hashmap
-   */
+  /** Method to initialize the hashmap */
   private void initializeCompatibilityRules() {
     // Rule 1
     compatibilityRules.put("hoodie", List.of("sweater vest"));

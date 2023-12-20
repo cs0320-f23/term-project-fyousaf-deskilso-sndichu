@@ -2,22 +2,19 @@ package edu.brown.cs.student.main.databasedata;
 
 import java.util.List;
 
-/**
- * Mocked database class.
- */
+/** Mocked database class. */
 public class MockDatabase implements Database {
 
   /**
    * Method to write to a database.
    *
-   * @param rating    a rating.
-   * @param clothing  the clothing.
+   * @param rating a rating.
+   * @param clothing the clothing.
    * @param timestamp the timestamp.
-   * @param status    the status.
+   * @param status the status.
    */
   @Override
-  public void write(Integer rating, List<String> clothing, String timestamp, String status) {
-  }
+  public void write(Integer rating, List<String> clothing, String timestamp, String status) {}
 
   /**
    * Method to read from the database.
@@ -36,7 +33,8 @@ public class MockDatabase implements Database {
    */
   @Override
   public List<OutfitLog> readAllOutfits() {
-    return List.of(new OutfitLog(List.of("hoodie, shirt"), Status.OUTSIDE),
+    return List.of(
+        new OutfitLog(List.of("hoodie, shirt"), Status.OUTSIDE),
         new OutfitLog(List.of("pants, shorts"), Status.INSIDE));
   }
 }
