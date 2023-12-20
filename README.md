@@ -6,9 +6,9 @@
 
 ## Contributors
 
-David Eskilson (deskilso) - primarily focused on the backend server and databases, also worked on frontend Google OAth and React Routing basics.
+David Eskilson (deskilso) - primarily focused on the backend server and databases, also worked on frontend Google OAuth and React Routing basics.
 
-Fatima Yousaf (fyousaf) - primarily focused on the frontend, including React Routing, Google OAth, design of the app, and the form.
+Fatima Yousaf (fyousaf) - primarily focused on the frontend, including React Routing, Google OAuth, design of the app, and the form.
 
 Stanley Ndichu (sndichu) - primarily focused on the backend recommendation algorithm.
 
