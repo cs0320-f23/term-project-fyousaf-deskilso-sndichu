@@ -10,4 +10,11 @@ import java.util.List;
  */
 public record OutfitLog(List<String> outfit, Status status) {
 
+  public List<String> getOutfit() {
+    return outfit;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
 }
