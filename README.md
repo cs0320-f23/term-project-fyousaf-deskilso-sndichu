@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# term-project-fyousaf-deskilso-sndichu--
+# Term Project - Fatima Yousaf, David Eskilson, and Stanley Ndichu
 
 <!-- ABOUT THE PROJECT -->
 
@@ -102,6 +102,10 @@ Basic testing of writing wide array of information to the database and then read
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Design Choices
+
+### Classes and Interfaces
+
+On the backend, the structure is the standard Spark Java server structure with handlers implementing the Route interface. We also have an interface representing the database to facilitate mocking.
 
 ### Accesibility:
 
