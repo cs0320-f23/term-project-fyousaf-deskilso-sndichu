@@ -1,4 +1,4 @@
-package edu.brown.cs.student.database;
+package edu.brown.cs.student.databaseintegration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,7 +28,7 @@ import spark.Spark;
 /**
  * Tests for the database class and its associated write handler.
  */
-public class DatabaseTest {
+public class DatabaseIntegrationTest {
 
   private final Type mapStringObject =
       Types.newParameterizedType(Map.class, String.class, Object.class);
@@ -84,7 +84,7 @@ public class DatabaseTest {
    * @throws IOException for connection issues
    */
   @Test
-  public void testUnit() throws IOException {
+  public void testIntegration() throws IOException {
     // Set up the request, make the request
     HttpURLConnection loadConnection = tryRequest(
         "/databasewrite?rating=5&status=inside&clothing=Shirt!Pants!Hoodie");
