@@ -9,24 +9,24 @@ import edu.brown.cs.student.main.databasedata.Database;
 import edu.brown.cs.student.main.databasedata.DatabaseDataSource;
 import edu.brown.cs.student.main.databasehandlers.DatabaseReadHandler;
 import edu.brown.cs.student.main.databasehandlers.DatabaseWriteHandler;
-import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.brown.cs.student.main.recommendationalg.Constants;
+import edu.brown.cs.student.main.recommendationalg.RecommendationHandler;
+import edu.brown.cs.student.main.recommendationalg.RecommendationSource;
 import spark.Spark;
 
-/**
- * The class representing the server.
- */
+/** The class representing the server. */
 public class Server {
 
   // spark port for the server
   static final int port = 3232;
 
-  /**
-   * Constructor for the server, starting it with Spark Java.
-   */
+  /** Constructor for the server, starting it with Spark Java. */
   public Server(Database database) {
+        Constants constants = new Constants();
     // Set up our SparkJava server and allow access:
     Spark.port(port);
     after(
@@ -34,9 +34,13 @@ public class Server {
           response.header("Access-Control-Allow-Origin", "*");
           response.header("Access-Control-Allow-Methods", "*");
         });
+      DatabaseDataSource mySource = new DatabaseDataSource();
+      //System.out.println(mySource.readAllOutfits());
+      RecommendationSource myRecommendation = new
+              RecommendationSource(constants.compatibilityRules,mySource,mySource.readAllOutfits());
 
     // listen on our endpoints
-    Spark.get("/recommendation", new RecommendationHandler());
+      Spark.get("/recommendation", new RecommendationHandler(myRecommendation));
     Spark.get("/databaseread", new DatabaseReadHandler(database));
     Spark.get("/databasewrite", new DatabaseWriteHandler(database));
 
@@ -67,7 +71,9 @@ public class Server {
         });
 
     // Wait until the server has started.
+    Spark.init();
     Spark.awaitInitialization();
+      System.out.println("Project2 started at http://localhost:" + port);
   }
 
   /**
